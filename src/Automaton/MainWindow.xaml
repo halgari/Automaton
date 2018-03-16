@@ -4,81 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Automaton"
-        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        xmlns:vm="clr-namespace:Automaton.ViewModel"
-        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
-        xmlns:handle="clr-namespace:Automaton.Handles"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        UseLayoutRounding="True"
-        Title="Automaton" Height="700" Width="1100" AllowsTransparency="False">
-
-    <Window.DataContext>
-        <vm:MainWindowViewModel/>
-    </Window.DataContext>
-    
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Closing">
-            <cmd:EventToCommand Command="{Binding OnWindowCloseCommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
-
-    <Grid DataContext="{StaticResource TransitionHandler}">
-        <!-- Pre-installation dialog container -->
-        <Grid DataContext="{StaticResource DialogHandler}">
-            <Image Source="/Automaton;component/Content/alduin.png" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="-5">
-                <Image.Effect>
-                    <BlurEffect Radius="5"/>
-                </Image.Effect>
-            </Image>
-
-            <materialDesign:Transitioner DataContext="{StaticResource DialogHandler}" SelectedIndex="{Binding CurrentCardIndex}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-
-                <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect ExpandIn}">
-                    <local:InitialSetupDialog HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </materialDesign:TransitionerSlide>
-
-                <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight}" ClipToBounds="True">
-                    <materialDesign:TransitionerSlide.ForwardWipe>
-                        <materialDesign:SlideOutWipe/>
-                    </materialDesign:TransitionerSlide.ForwardWipe>
-                    <local:OptionalInstallerDialog HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30"/>
-                </materialDesign:TransitionerSlide>
-
-                <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight}" ClipToBounds="True">
-                    <materialDesign:TransitionerSlide.ForwardWipe>
-                        <materialDesign:SlideWipe/>
-                    </materialDesign:TransitionerSlide.ForwardWipe>
-                    <local:ModValidationDialog HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30"/>
-                </materialDesign:TransitionerSlide>
-
-                <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight}" ClipToBounds="True">
-                    <materialDesign:TransitionerSlide.ForwardWipe>
-                        <materialDesign:SlideWipe/>
-                    </materialDesign:TransitionerSlide.ForwardWipe>
-                    <local:CompletedDialog HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </materialDesign:TransitionerSlide>
-
-                <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight}" ClipToBounds="True">
-                    <materialDesign:TransitionerSlide.ForwardWipe>
-                        <materialDesign:SlideOutWipe/>
-                    </materialDesign:TransitionerSlide.ForwardWipe>
-                    <local:ModListViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"/>
-                </materialDesign:TransitionerSlide>
-
-                <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight}" ClipToBounds="True">
-                    <local:LoadingDialog HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </materialDesign:TransitionerSlide>
-
-            </materialDesign:Transitioner>
-        </Grid>
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        
     </Grid>
-
 </Window>

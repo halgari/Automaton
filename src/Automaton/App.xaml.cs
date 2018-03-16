@@ -19,13 +19,12 @@ namespace Automaton
                 File.Create(loggingPath).Dispose();
             }
 
-            File.AppendAllText(loggingPath, $"{Environment.NewLine}{DateTime.Now} - Automaton Initiated");
+            File.AppendAllText(loggingPath, $"{Environment.NewLine}{DateTime.Now} ##Automaton Initiated##");
 
             AppDomain.CurrentDomain.FirstChanceException += (object source, FirstChanceExceptionEventArgs e) =>
             {
-                File.AppendAllText(loggingPath, $"{Environment.NewLine}{DateTime.Now} - {e.Exception.StackTrace} {Environment.NewLine}--> {e.Exception.Message}");
+                File.AppendAllText(loggingPath, $"{Environment.NewLine}{DateTime.Now} | (!){e.Exception.StackTrace} {Environment.NewLine}{DateTime.Now} || (?){e.Exception.Message}");
             };
-
         }
     }
 }

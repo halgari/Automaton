@@ -14,7 +14,7 @@ namespace Automaton.Model
         private static string ExePath = Path.Combine(BaseDirectory, "7z.exe");
         private static string DLLPath = Path.Combine(BaseDirectory, "7z.dll");
 
-        private static string ExtractedFilePath;
+        public static string ExtractedFilePath;
         private static string InstallationLocation;
 
         public SevenZipHandler()
@@ -50,11 +50,11 @@ namespace Automaton.Model
         /// Will extract the archive to the temp directory and target it within the class.
         /// </summary>
         /// <param name="path">The path of the archive file (.7z, .zip, .rar)</param>
-        public void ExtractArchive(string path)
+        public void ExtractArchive(string path, string extractionDirectory = null)
         {
-            if (Directory.Exists(ExtractedFilePath))
+            if (extractionDirectory != null)
             {
-                DeleteDirectory(ExtractedFilePath);
+                TempDirectory = extractionDirectory;
             }
 
             var extractedPath = Path.Combine(TempDirectory, Path.GetFileNameWithoutExtension(path));
@@ -95,11 +95,9 @@ namespace Automaton.Model
         /// <param name="path"></param>
         public void DeleteExtractedFiles(string path)
         {
-            var extractedPath = Path.Combine(TempDirectory, Path.GetFileNameWithoutExtension(path));
-
-            if (Directory.Exists(extractedPath))
+            if (Directory.Exists(ExtractedFilePath))
             {
-                DeleteDirectory(extractedPath);
+                DeleteDirectory(ExtractedFilePath);
             }
         }
 
@@ -142,7 +140,7 @@ namespace Automaton.Model
                     .Select(x => x.Replace('/', Path.DirectorySeparatorChar))
                     .ToList();
 
-                if (string.IsNullOrEmpty(source))
+                if (source != null)
                 {
                     targetFiles = targetFiles.Select(x => x
                         .Replace($"{Path.DirectorySeparatorChar}{new DirectoryInfo(ExtractedFilePath).Name}", ""))
@@ -151,11 +149,27 @@ namespace Automaton.Model
 
                 foreach (var ignore in ignoresTarget)
                 {
-                    LoadingDialogHandle.UpdateDebugText($"Ignoring: \"{installation.Ignores[ignoresTarget.IndexOf(ignore)]}\"");
+                    var normalizedIgnorePath = Path.GetFullPath(ignore);
 
-                    var index = targetFiles.IndexOf(ignore);
-                    sourceFiles.RemoveAt(index);
-                    targetFiles.Remove(ignore);
+                    if (!Path.HasExtension(normalizedIgnorePath))
+                    {
+                        LoadingDialogHandle.UpdateDebugText($"Ignoring Directory: \"{Path.GetDirectoryName(normalizedIgnorePath)}\"");
+
+                        targetFiles = targetFiles
+                            .Where(x => !x.StartsWith(normalizedIgnorePath)).ToList();
+
+                        sourceFiles = sourceFiles
+                            .Where(x => !x.StartsWith(normalizedIgnorePath)).ToList();
+                    }
+
+                    else if (Path.HasExtension(normalizedIgnorePath))
+                    {
+                        LoadingDialogHandle.UpdateDebugText($"Ignoring File: \"{Path.GetFileName(normalizedIgnorePath)}\"");
+
+                        var index = targetFiles.IndexOf(normalizedIgnorePath);
+                        sourceFiles.RemoveAt(index);
+                        targetFiles.RemoveAt(index);
+                    }
                 }
 
                 foreach (var file in targetFiles)
@@ -279,11 +293,6 @@ namespace Automaton.Model
             if (File.Exists(ExePath))
             {
                 File.Delete(ExePath);
-            }
-
-            if (Directory.Exists(TempDirectory))
-            {
-                Directory.Delete(TempDirectory, true);
             }
         }
     }

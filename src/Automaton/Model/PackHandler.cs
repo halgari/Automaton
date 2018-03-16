@@ -66,11 +66,11 @@ namespace Automaton.Model
             // Unzip the file into the temporary directory
             using (var sevenZipHandler = new SevenZipHandler())
             {
-                var tempDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "temp");
+                var tempDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "modpack_temp");
                 var extractedModPackName = Path.GetFileNameWithoutExtension(ModPackLocation);
                 var extractedModPackPath = Path.Combine(tempDirectory, extractedModPackName);
 
-                sevenZipHandler.ExtractArchive(modPackLocation);
+                sevenZipHandler.ExtractArchive(modPackLocation, tempDirectory);
 
                 var packFileLocation = Path.Combine(extractedModPackPath, "modpack.json");
 
@@ -216,6 +216,7 @@ namespace Automaton.Model
 
                     UpdateDebugText($"Completed in {stopwatch.Elapsed} seconds");
                     UpdateDebugText("####################");
+
                 }
             }
 

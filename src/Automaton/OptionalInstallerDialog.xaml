@@ -24,7 +24,7 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width=".8*"/>
+            <ColumnDefinition Width=".6*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -77,9 +77,10 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
+                    
                     <Image Stretch="Fill" Source="{Binding ImagePath}" Grid.Row="0" Margin="0,0,0,10"/>
 
-                    <TextBlock TextWrapping="Wrap" Grid.Row="1" ScrollViewer.CanContentScroll="True" Margin="3,0" Text="{Binding DescriptionText}"/>
+                    <TextBlock TextWrapping="Wrap" Grid.Row="2" FontSize="13" ScrollViewer.CanContentScroll="True" Margin="3,0" Text="{Binding DescriptionText}"/>
                 </Grid>
             </materialDesign:Card>
 

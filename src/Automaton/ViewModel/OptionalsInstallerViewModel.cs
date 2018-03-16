@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
@@ -21,8 +22,11 @@ namespace Automaton.ViewModel
 
         public ObservableCollection<OptionalInstall> OptionalInstalls { get; set; }
 
+        public ModPack ModPack { get; set; }
+
         public string InstallerTitle { get; set; }
         public string ImagePath { get; set; }
+        public string DefaultImagePath { get; set; }
         public string DescriptionText { get; set; }
 
         public OptionalsInstallerViewModel()
@@ -36,6 +40,8 @@ namespace Automaton.ViewModel
         {
             if (currentIndex == CardIndex.OptionalSetup)
             {
+                ModPack = PackHandler.ModPack;
+
                 GeneratePackOptionals(PackHandler.ModPack);
             }
         }
@@ -45,11 +51,16 @@ namespace Automaton.ViewModel
             var workingOptional = modPack.OptionalInstallation;
 
             InstallerTitle = workingOptional.Title;
-            ImagePath = workingOptional.DefaultImage;
+
+            if (!string.IsNullOrEmpty(workingOptional.DefaultImage))
+            {
+                ImagePath = Path.Combine(SevenZipHandler.ExtractedFilePath, CleanupPath(workingOptional.DefaultImage));
+                DefaultImagePath = ImagePath;
+            }
+
             DescriptionText = workingOptional.DefaultDescription;
 
             // Lets start building the installer's controls
-
             var workingGroups = workingOptional.Groups;
             OptionalInstalls = new ObservableCollection<OptionalInstall>();
 
@@ -62,7 +73,6 @@ namespace Automaton.ViewModel
                 };
 
                 // TODO: Set types to some sort of global enum or dictionary instead of hard-coding them in here.
-
                 var stackPanel = new StackPanel();
                 foreach (var element in group.Elements)
                 {
@@ -150,7 +160,18 @@ namespace Automaton.ViewModel
             var controlData = (Element)sender.CommandParameter;
 
             DescriptionText = controlData.Description;
-            ImagePath = controlData.Image;
+
+            if (!string.IsNullOrEmpty(controlData.Image))
+            {
+                var imagePath = Path.Combine(SevenZipHandler.ExtractedFilePath, CleanupPath(controlData.Image));
+
+                ImagePath = imagePath;
+            }
+
+            else
+            {
+                ImagePath = DefaultImagePath;
+            }
         }
 
         private string AddTwoStrings(string one, string two)
@@ -233,6 +254,23 @@ namespace Automaton.ViewModel
         private void NextCard()
         {
             TransitionHandler.CalculateNextCard(CardIndex.OptionalSetup);
+        }
+
+        private string CleanupPath(string path)
+        {
+            var isFile = Path.HasExtension(path);
+
+            if (path.StartsWith("/"))
+            {
+                path = path.TrimStart('/');
+            }
+
+            if (!path.EndsWith("/") && !string.IsNullOrEmpty(path) && !isFile)
+            {
+                path += "/";
+            }
+
+            return path;
         }
     }
 

@@ -20,11 +20,33 @@ namespace Automaton.Model
 
             foreach (var mod in mods)
             {
-                var matchingFiles = sourceFileInfos.Where(x => x.Length.ToString() == mod.FileSize || x.Name == mod.FileName);
+                var matchingFiles = sourceFileInfos.Where(x => x.Length.ToString() == mod.FileSize);
 
                 if (matchingFiles.Count() == 1)
                 {
                     matchingSourceFiles.Add(matchingFiles.First());
+                }
+
+                // When there are more than one matches found in matchingFiles.
+                else if (matchingFiles.Count() > 1)
+                {
+                    matchingFiles = sourceFileInfos.Where(x => mod.FileName == x.Name);
+
+                    if (matchingFiles.Count() >= 1)
+                    {
+                        matchingSourceFiles.Add(matchingFiles.First());
+                    }
+
+                    else if (matchingFiles.Count() == 0)
+                    {
+                        throw new System.Exception($"{mod.ModName}'s location was not determined. Make sure that the filename matches {mod.FileName}, and the filesize matches {mod.FileSize}.");
+                    }
+                }
+
+                // Should only happen on edge cases.
+                else if (matchingFiles.Count() == 0)
+                {
+                    throw new System.Exception($"The location of \"{mod.ModName}\" was not able to be determined. Make sure that the filename matches \"{mod.FileName}\", and the filesize matches \"{mod.FileSize}\".");
                 }
             }
 

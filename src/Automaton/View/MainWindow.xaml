@@ -1,20 +1,26 @@
-﻿<Window x:Class="Automaton.View.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Automaton"
-        xmlns:setupsteps="clr-namespace:Automaton.View.SetupSteps"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Automaton" Height="650" Width="925" ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None">
+﻿<Window
+    x:Class="Automaton.View.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Automaton"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:setupsteps="clr-namespace:Automaton.View.SetupSteps"
+    Title="Automaton"
+    Width="925"
+    Height="650"
+    AllowsTransparency="True"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    ResizeMode="NoResize"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    WindowStyle="None"
+    mc:Ignorable="d">
 
     <Grid>
 
@@ -23,74 +29,130 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!-- Title bar control -->
-        <materialDesign:ColorZone Grid.Row="0" Mode="PrimaryDark" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" materialDesign:ShadowAssist.ShadowDepth="Depth3">
+        <!--  Title bar control  -->
+        <materialDesign:ColorZone
+            Grid.Row="0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            materialDesign:ShadowAssist.ShadowDepth="Depth3"
+            Mode="PrimaryDark">
             <Grid>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
-                    <!-- Automaton logo -->
-                    <Image Source="pack://application:,,,/Content/Images/AutomatonHead.png" Width="Auto" Height="Auto" RenderOptions.BitmapScalingMode="Fant" Margin="10,4,5,5"/>
-                    
-                    <!-- Automaton name -->
-                    <Label Foreground="{DynamicResource MaterialDesignPaper}" FontFamily="{StaticResource ProductSans}" FontSize="17" 
-                               HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center">A U T O M A T O N</Label>
+                    <!--  Automaton logo  -->
+                    <Image
+                        Width="Auto"
+                        Height="Auto"
+                        Margin="10,4,5,5"
+                        RenderOptions.BitmapScalingMode="Fant"
+                        Source="pack://application:,,,/Content/Images/AutomatonHead.png" />
 
-                    <!-- Separator -->
-                    <Label FontFamily="{DynamicResource RobotoMono}" Foreground="{StaticResource MaterialDesignPaper}" VerticalAlignment="Center">>></Label>
+                    <!--  Automaton name  -->
+                    <Label
+                        Margin="5,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource ProductSans}"
+                        FontSize="17"
+                        Foreground="{DynamicResource MaterialDesignPaper}">
+                        A U T O M A T O N
+                    </Label>
 
-                    <!-- ModPack Name -->
-                    <Label FontFamily="{DynamicResource RobotoMono}" Foreground="{StaticResource MaterialDesignPaper}" VerticalAlignment="Center">Ultimate Skyrim</Label>
+                    <!--  Separator  -->
+                    <Label
+                        VerticalAlignment="Center"
+                        FontFamily="{DynamicResource RobotoMono}"
+                        Foreground="{StaticResource MaterialDesignPaper}">
+                        &gt;&gt;
+                    </Label>
+
+                    <!--  ModPack Name  -->
+                    <Label
+                        VerticalAlignment="Center"
+                        FontFamily="{DynamicResource RobotoMono}"
+                        Foreground="{StaticResource MaterialDesignPaper}">
+                        Ultimate Skyrim
+                    </Label>
 
                 </StackPanel>
 
-                <!-- Window control buttons -->
-                <StackPanel Orientation="Horizontal" Margin="0,0,5,0" HorizontalAlignment="Right">
+                <!--  Window control buttons  -->
+                <StackPanel
+                    Margin="0,0,5,0"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
 
-                    <!-- Options Window -->
-                    <Button Style="{StaticResource MaterialDesignToolButton}" materialDesign:RippleAssist.ClipToBounds="True" Margin="0,0,10,0">
-                        <materialDesign:PackIcon Kind="Settings" Foreground="{DynamicResource MaterialDesignPaper}" Width="22" Height="Auto"/>
+                    <!--  Options Window  -->
+                    <Button
+                        Margin="0,0,10,0"
+                        materialDesign:RippleAssist.ClipToBounds="True"
+                        Style="{StaticResource MaterialDesignToolButton}">
+                        <materialDesign:PackIcon
+                            Width="22"
+                            Height="Auto"
+                            Foreground="{DynamicResource MaterialDesignPaper}"
+                            Kind="Settings" />
                     </Button>
 
-                    <!-- Minimize window -->
-                    <Button Style="{StaticResource MaterialDesignToolButton}" materialDesign:RippleAssist.ClipToBounds="True">
-                        <materialDesign:PackIcon Kind="WindowMinimize" Foreground="{DynamicResource MaterialDesignPaper}" Width="18" Height="Auto" Margin="0,10,0,0"/>
+                    <!--  Minimize window  -->
+                    <Button materialDesign:RippleAssist.ClipToBounds="True" Style="{StaticResource MaterialDesignToolButton}">
+                        <materialDesign:PackIcon
+                            Width="18"
+                            Height="Auto"
+                            Margin="0,10,0,0"
+                            Foreground="{DynamicResource MaterialDesignPaper}"
+                            Kind="WindowMinimize" />
                     </Button>
 
-                    <!-- Resize window -->
-                    <Button Style="{StaticResource MaterialDesignToolButton}" materialDesign:RippleAssist.ClipToBounds="True">
-                        <materialDesign:PackIcon Kind="WindowMaximize" Foreground="{DynamicResource MaterialDesignPaper}" Width="18" Height="Auto"/>
+                    <!--  Resize window  -->
+                    <Button materialDesign:RippleAssist.ClipToBounds="True" Style="{StaticResource MaterialDesignToolButton}">
+                        <materialDesign:PackIcon
+                            Width="18"
+                            Height="Auto"
+                            Foreground="{DynamicResource MaterialDesignPaper}"
+                            Kind="WindowMaximize" />
                     </Button>
 
-                    <!-- Close window -->
-                    <Button HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolButton}" materialDesign:RippleAssist.ClipToBounds="True">
-                        <materialDesign:PackIcon Kind="WindowClose" Foreground="{DynamicResource MaterialDesignPaper}" Width="20" Height="Auto"/>
+                    <!--  Close window  -->
+                    <Button
+                        HorizontalAlignment="Right"
+                        materialDesign:RippleAssist.ClipToBounds="True"
+                        Style="{StaticResource MaterialDesignToolButton}">
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="Auto"
+                            Foreground="{DynamicResource MaterialDesignPaper}"
+                            Kind="WindowClose" />
                     </Button>
                 </StackPanel>
             </Grid>
         </materialDesign:ColorZone>
 
-        <!-- Primary content -->
+        <!--  Primary content  -->
         <ScrollViewer Grid.Row="1">
 
             <Grid Margin="0,10,0,0">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width=".2*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width=".2*"/>
+                    <ColumnDefinition Width=".2*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width=".2*" />
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="1">
-                    <!-- Setup step 0 -->
-                    <setupsteps:SetupStep0 Margin="0,5,0,5"/>
+                    <!--  Setup step 0  -->
+                    <setupsteps:SetupStep0 Margin="0,5,0,5" />
 
-                    <!-- Setup step 1 -->
-                    <setupsteps:SetupStep1 Margin="0,5,0,5" IsEnabled="False"/>
-                    
-                    <!-- Setup step 2 -->
-                    <setupsteps:SetupStep2 Margin="0,5,0,5" IsEnabled="False"/>
+                    <!--  Setup step 1  -->
+                    <setupsteps:SetupStep1 Margin="0,5,0,5" IsEnabled="False" />
+
+                    <!--  Setup step 2  -->
+                    <setupsteps:SetupStep2 Margin="0,5,0,5" IsEnabled="False" />
+
+                    <!--  Setup step 3  -->
+                    <setupsteps:SetupStep3 Margin="0,5,0,5" IsEnabled="True" />
                 </StackPanel>
-                
+
             </Grid>
         </ScrollViewer>
 

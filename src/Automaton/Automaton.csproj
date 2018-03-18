@@ -94,6 +94,12 @@
     <Compile Include="View\SetupSteps\SetupStep2.xaml.cs">
       <DependentUpon>SetupStep2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SetupSteps\SetupStep3.xaml.cs">
+      <DependentUpon>SetupStep3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SetupSteps\SetupStep4.xaml.cs">
+      <DependentUpon>SetupStep4.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -121,6 +127,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SetupSteps\SetupStep2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SetupSteps\SetupStep3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SetupSteps\SetupStep4.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Styles\ScrollbarStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

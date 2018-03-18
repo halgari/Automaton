@@ -14,11 +14,26 @@ namespace Automaton
         /// </summary>
         /// <param name="sourceDirectory"></param>
         /// <returns></returns>
-        public static List<Mod> GetMissingMods(string sourceDirectory)
+        public static List<Mod> GetModsWithMissingArchives(string sourceDirectory)
         {
 
 
             return null;
         }
+
+        /// <summary>
+        /// Returns true/false on whether paths outlined by <see cref="Mod.ModArchivePath"/> exist
+        /// Checks filesize and MD5Sum (on edge cases) to confirm that the archive is correct 
+        /// </summary>
+        /// <param name="sourceDirectory"></param>
+        /// <returns></returns>
+        public static bool ValidModArchiveLocations(string sourceDirectory)
+        {
+
+
+            return false;
+        }
+
+
     }
 }

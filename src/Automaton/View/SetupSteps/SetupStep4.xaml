@@ -45,9 +45,7 @@
                 FontFamily="{StaticResource MaterialDesignFont}"
                 FontSize="15"
                 TextWrapping="Wrap">
-                I wasn't able to find some mod archives, please verify that they exist at the targeted location and are of the correct file, or locate them using the
-                <materialDesign:PackIcon VerticalAlignment="Bottom" Kind="Magnify" />
-                button below.
+                I wasn't able to find some mod archives, please verify that they exist at the targeted location and are of the correct file, or locate them below.
             </TextBlock>
 
             <StackPanel Margin="5">

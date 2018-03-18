@@ -144,13 +144,16 @@
                     <setupsteps:SetupStep0 Margin="0,5,0,5" />
 
                     <!--  Setup step 1  -->
-                    <setupsteps:SetupStep1 Margin="0,5,0,5" IsEnabled="False" />
+                    <setupsteps:SetupStep1 Margin="0,5,0,5" IsEnabled="True" />
 
                     <!--  Setup step 2  -->
-                    <setupsteps:SetupStep2 Margin="0,5,0,5" IsEnabled="False" />
+                    <setupsteps:SetupStep2 Margin="0,5,0,5" IsEnabled="True" />
 
                     <!--  Setup step 3  -->
                     <setupsteps:SetupStep3 Margin="0,5,0,5" IsEnabled="True" />
+
+                    <!--  Setup step 4  -->
+                    <setupsteps:SetupStep4 Margin="0,5,0,5" IsEnabled="True" />
                 </StackPanel>
 
             </Grid>

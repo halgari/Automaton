@@ -14,7 +14,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Automaton" Height="600" Width="875" ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None">
+        Title="Automaton" Height="650" Width="925" ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None">
 
     <Grid>
 
@@ -45,6 +45,11 @@
 
                 <!-- Window control buttons -->
                 <StackPanel Orientation="Horizontal" Margin="0,0,5,0" HorizontalAlignment="Right">
+
+                    <!-- Options Window -->
+                    <Button Style="{StaticResource MaterialDesignToolButton}" materialDesign:RippleAssist.ClipToBounds="True" Margin="0,0,10,0">
+                        <materialDesign:PackIcon Kind="Settings" Foreground="{DynamicResource MaterialDesignPaper}" Width="22" Height="Auto"/>
+                    </Button>
 
                     <!-- Minimize window -->
                     <Button Style="{StaticResource MaterialDesignToolButton}" materialDesign:RippleAssist.ClipToBounds="True">

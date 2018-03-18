@@ -19,11 +19,11 @@
         <StackPanel Margin="5">
 
             <StackPanel Orientation="Horizontal" Grid.Row="0">
-                <Label FontFamily="{StaticResource RobotoMono}" FontSize="20" VerticalAlignment="Center">2.</Label>
-                <Label FontFamily="{StaticResource ProductSans}" FontSize="16" VerticalAlignment="Center">Loading a ModPack</Label>
+                <Label FontFamily="{StaticResource RobotoMono}" FontSize="{StaticResource CardNumberSize}" VerticalAlignment="Center">2.</Label>
+                <Label FontFamily="{StaticResource ProductSans}" FontSize="{StaticResource CardHeaderSize}" VerticalAlignment="Center">Loading a ModPack</Label>
             </StackPanel>
 
-            <TextBlock TextWrapping="WrapWithOverflow" Margin="5" FontFamily="{StaticResource ProductSans}" FontSize="15" VerticalAlignment="Center">
+            <TextBlock TextWrapping="WrapWithOverflow" Margin="5" FontFamily="{StaticResource MaterialDesignFont}" FontSize="15" VerticalAlignment="Center">
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
                         <Style.Triggers>
@@ -33,7 +33,7 @@
                         </Style.Triggers>
                     </Style>
                 </TextBlock.Style>
-                Time to select and load a modpack! Note that modpacks can only present in archive (.7z, .rar, .zip) or json (.json) formats.
+                Time to select and load a modpack! Note that modpacks can only be found in archive (.7z, .rar, .zip) or json (.json) formats.
             </TextBlock>
 
             <StackPanel Orientation="Horizontal">

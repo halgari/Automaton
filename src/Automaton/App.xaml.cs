@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿using Automaton.Model;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Windows;
 
 namespace Automaton
 {
@@ -7,5 +11,8 @@ namespace Automaton
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+        }
     }
 }

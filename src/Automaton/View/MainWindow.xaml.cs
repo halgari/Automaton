@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Automaton
+namespace Automaton.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
 
-namespace Automaton
+namespace Automaton.Model
 {
     internal class JSONHandler
     {
@@ -11,7 +10,7 @@ namespace Automaton
         /// <typeparam name="T"></typeparam>
         /// <param name="jsonContent"></param>
         /// <returns></returns>
-        public static T DeserializeModPack<T>(string jsonContent)
+        public static T DeserializeJson<T>(string jsonContent)
         {
             T deserializedJson = JsonConvert.DeserializeObject<T>(jsonContent);
 
@@ -26,7 +25,7 @@ namespace Automaton
         /// <returns></returns>
         public static string SerializeJson<T>(T jsonObject)
         {
-            return String.Empty;
+            return JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
         }
     }
 }

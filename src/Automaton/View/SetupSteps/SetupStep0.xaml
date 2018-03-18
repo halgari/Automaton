@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="Automaton.View.SetupSteps.SetupStep0"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Automaton.View.SetupSteps"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal" 
+             TextOptions.TextRenderingMode="Auto"        
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             d:DesignHeight="500" d:DesignWidth="500">
+
+    <materialDesign:Card UniformCornerRadius="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <StackPanel Margin="5">
+
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <Label FontFamily="{StaticResource RobotoMono}" FontSize="19" VerticalAlignment="Center">0.</Label>
+                <Label FontFamily="{StaticResource ProductSans}" FontSize="16" VerticalAlignment="Center">Welcome to Automaton</Label>
+            </StackPanel>
+
+            <!--<TextBlock Margin="5" FontFamily="{StaticResource ProductSans}" FontSize="15" VerticalAlignment="Center">Before we start, lets get the basics out of the way.</TextBlock>-->
+
+            <TextBlock TextWrapping="Wrap" Margin="5" FontFamily="{StaticResource ProductSans}" FontSize="15" VerticalAlignment="Center">
+                Automaton is a modpack installer which respects the right's of the mod authors.
+            </TextBlock>
+
+            <TextBlock TextWrapping="Wrap" Margin="5" FontFamily="{StaticResource ProductSans}" FontSize="15" VerticalAlignment="Center">
+                This application is developed by metherul, who can be reached on reddit (/u/metherul), Discord (metherul#1249), and github.
+            </TextBlock>
+
+            <TextBlock TextWrapping="WrapWithOverflow" FontFamily="{StaticResource RobotoMono}" FontSize="13" Margin="5" VerticalAlignment="Center">
+                THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+                FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+                AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+                LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+                OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+                SOFTWARE.
+            </TextBlock>
+
+            <TextBlock TextWrapping="WrapWithOverflow" FontFamily="{StaticResource RobotoMono}" FontSize="13" Margin="5" VerticalAlignment="Center">
+                In other words – Automaton does not come with a warranty and cannot be held liable for damages of any kind. 
+            </TextBlock>
+
+            <Grid>
+                <StackPanel Orientation="Horizontal" Margin="5,10,5,5">
+                    <materialDesign:PackIcon Kind="EmoticonSad" VerticalAlignment="Center" Width="18" Height="Auto" Foreground="Orange"/>
+
+                    <Label VerticalAlignment="Center" FontFamily="{StaticResource ProductSans}" FontSize="14">Not Completed</Label>
+                </StackPanel>
+
+                <Button HorizontalAlignment="Right" Style="{DynamicResource MaterialDesignFlatButton}" AllowDrop="False" FontFamily="{StaticResource ProductSans}">
+                    Alrighty
+                </Button>
+            </Grid>
+        </StackPanel>
+    </materialDesign:Card>
+
+</UserControl>

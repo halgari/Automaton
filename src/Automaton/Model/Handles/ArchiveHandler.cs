@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Automaton
+namespace Automaton.Model
 {
     internal class ArchiveHandler : IDisposable
     {

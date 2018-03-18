@@ -28,6 +28,9 @@
             <Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
 
+                    <!-- Automaton logo -->
+                    <Image Source="pack://application:,,,/Content/Images/AutomatonHead.png" Width="Auto" Height="Auto" RenderOptions.BitmapScalingMode="Fant" Margin="10,4,5,5"/>
+                    
                     <!-- Automaton name -->
                     <Label Foreground="{DynamicResource MaterialDesignPaper}" FontFamily="{StaticResource ProductSans}" FontSize="17" 
                                HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center">A U T O M A T O N</Label>

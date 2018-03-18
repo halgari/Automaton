@@ -19,8 +19,8 @@
         <StackPanel Margin="5">
 
             <StackPanel Orientation="Horizontal" Grid.Row="0">
-                <Label FontFamily="{StaticResource RobotoMono}" FontSize="19" VerticalAlignment="Center">0.</Label>
-                <Label FontFamily="{StaticResource ProductSans}" FontSize="16" VerticalAlignment="Center">Welcome to Automaton</Label>
+                <Label FontFamily="{StaticResource RobotoMono}" FontSize="20" VerticalAlignment="Center">0.</Label>
+                <Label FontFamily="{StaticResource ProductSans}" FontSize="16" VerticalAlignment="Center">Welcome to Automaton!</Label>
             </StackPanel>
 
             <!--<TextBlock Margin="5" FontFamily="{StaticResource ProductSans}" FontSize="15" VerticalAlignment="Center">Before we start, lets get the basics out of the way.</TextBlock>-->
@@ -30,7 +30,7 @@
             </TextBlock>
 
             <TextBlock TextWrapping="Wrap" Margin="5" FontFamily="{StaticResource ProductSans}" FontSize="15" VerticalAlignment="Center">
-                This application is developed by metherul, who can be reached on reddit (/u/metherul), Discord (metherul#1249), and github.
+                This application is developed by metherul, who can be reached on Reddit (/u/metherul), Discord (metherul#1249), and Github.
             </TextBlock>
 
             <TextBlock TextWrapping="WrapWithOverflow" FontFamily="{StaticResource RobotoMono}" FontSize="13" Margin="5" VerticalAlignment="Center">

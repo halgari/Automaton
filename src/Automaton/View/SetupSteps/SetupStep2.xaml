@@ -19,7 +19,7 @@
         <StackPanel Margin="5">
 
             <StackPanel Orientation="Horizontal" Grid.Row="0">
-                <Label FontFamily="{StaticResource RobotoMono}" FontSize="19" VerticalAlignment="Center">2.</Label>
+                <Label FontFamily="{StaticResource RobotoMono}" FontSize="20" VerticalAlignment="Center">2.</Label>
                 <Label FontFamily="{StaticResource ProductSans}" FontSize="16" VerticalAlignment="Center">Loading a ModPack</Label>
             </StackPanel>
 

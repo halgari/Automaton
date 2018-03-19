@@ -1,12 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GalaSoft.MvvmLight.Command;
+using System.Windows;
 
 namespace Automaton.View
 {
-    class MainWindowViewModel
+    internal class MainWindowViewModel
     {
+        public RelayCommand<Window> OnWindowDragCommand { get; set; }
+        public RelayCommand<Window> OnWindowDoubleClickCommand { get; set; }
+        public RelayCommand<Window> MinimizeWindowCommand { get; set; }
+        public RelayCommand<Window> ResizeWindowCommand { get; set; }
+        public RelayCommand<Window> CloseWindowCommand { get; set; }
+
+        public MainWindowViewModel()
+        {
+            OnWindowDragCommand = new RelayCommand<Window>(WindowDrag);
+            OnWindowDoubleClickCommand = new RelayCommand<Window>(WindowDoubleClick);
+            MinimizeWindowCommand = new RelayCommand<Window>(MinimizeWindow);
+            ResizeWindowCommand = new RelayCommand<Window>(WindowDoubleClick);
+            CloseWindowCommand = new RelayCommand<Window>(CloseWindow);
+        }
+
+        private void WindowDrag(Window window)
+        {
+            window.DragMove();
+        }
+
+        private void WindowDoubleClick(Window window)
+        {
+            var windowState = window.WindowState;
+
+            window.WindowState = windowState == WindowState.Normal ? WindowState.Maximized : WindowState.Normal;
+        }
+
+        private void MinimizeWindow(Window window)
+        {
+            window.WindowState = WindowState.Minimized;
+        }
+
+        private void CloseWindow(Window window)
+        {
+            window.Close();
+        }
     }
 }

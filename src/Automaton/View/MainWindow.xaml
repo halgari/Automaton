@@ -3,10 +3,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:local="clr-namespace:Automaton"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:setupsteps="clr-namespace:Automaton.View.SetupSteps"
+    xmlns:view="clr-namespace:Automaton.View"
     Title="Automaton"
     Width="925"
     Height="650"
@@ -22,6 +23,10 @@
     WindowStyle="None"
     mc:Ignorable="d">
 
+    <Window.DataContext>
+        <view:MainWindowViewModel />
+    </Window.DataContext>
+
     <Grid>
 
         <Grid.RowDefinitions>
@@ -36,6 +41,19 @@
             VerticalAlignment="Stretch"
             materialDesign:ShadowAssist.ShadowDepth="Depth3"
             Mode="PrimaryDark">
+
+            <i:Interaction.Triggers>
+                <!--  Mouse drag functionality  -->
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding OnWindowDragCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:MainWindow}}}" />
+                </i:EventTrigger>
+
+                <!--  Double click functionality  -->
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding OnWindowDoubleClickCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:MainWindow}}}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
             <Grid>
                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
@@ -73,7 +91,6 @@
                         Foreground="{StaticResource MaterialDesignPaper}">
                         Ultimate Skyrim
                     </Label>
-
                 </StackPanel>
 
                 <!--  Window control buttons  -->
@@ -95,7 +112,11 @@
                     </Button>
 
                     <!--  Minimize window  -->
-                    <Button materialDesign:RippleAssist.ClipToBounds="True" Style="{StaticResource MaterialDesignToolButton}">
+                    <Button
+                        materialDesign:RippleAssist.ClipToBounds="True"
+                        Command="{Binding MinimizeWindowCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:MainWindow}}}"
+                        Style="{StaticResource MaterialDesignToolButton}">
                         <materialDesign:PackIcon
                             Width="18"
                             Height="Auto"
@@ -105,7 +126,11 @@
                     </Button>
 
                     <!--  Resize window  -->
-                    <Button materialDesign:RippleAssist.ClipToBounds="True" Style="{StaticResource MaterialDesignToolButton}">
+                    <Button
+                        materialDesign:RippleAssist.ClipToBounds="True"
+                        Command="{Binding ResizeWindowCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:MainWindow}}}"
+                        Style="{StaticResource MaterialDesignToolButton}">
                         <materialDesign:PackIcon
                             Width="18"
                             Height="Auto"
@@ -117,6 +142,8 @@
                     <Button
                         HorizontalAlignment="Right"
                         materialDesign:RippleAssist.ClipToBounds="True"
+                        Command="{Binding CloseWindowCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:MainWindow}}}"
                         Style="{StaticResource MaterialDesignToolButton}">
                         <materialDesign:PackIcon
                             Width="20"
@@ -141,26 +168,24 @@
 
                 <StackPanel Grid.Column="1">
                     <!--  Setup step 0  -->
-                    <setupsteps:SetupStep0 Margin="0,5,0,5" />
+                    <view:SetupStep0 Margin="0,5,0,5" />
 
                     <!--  Setup step 1  -->
-                    <setupsteps:SetupStep1 Margin="0,5,0,5" IsEnabled="True" />
+                    <view:SetupStep1 Margin="0,5,0,5" />
 
                     <!--  Setup step 2  -->
-                    <setupsteps:SetupStep2 Margin="0,5,0,5" IsEnabled="True" />
+                    <view:SetupStep2 Margin="0,5,0,5" />
 
                     <!--  Setup step 3  -->
-                    <setupsteps:SetupStep3 Margin="0,5,0,5" IsEnabled="True" />
+                    <view:SetupStep3 Margin="0,5,0,5" />
 
                     <!--  Setup step 4  -->
-                    <setupsteps:SetupStep4 Margin="0,5,0,5" IsEnabled="True" />
+                    <view:SetupStep4 Margin="0,5,0,5" />
 
                     <!--  Setup step 5  -->
-                    <setupsteps:SetupStep5 Margin="0,5,0,5" IsEnabled="True" />
+                    <view:SetupStep5 Margin="0,5,0,5" />
                 </StackPanel>
-
             </Grid>
         </ScrollViewer>
-
     </Grid>
 </Window>

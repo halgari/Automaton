@@ -6,6 +6,7 @@
     xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:Automaton"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:view="clr-namespace:Automaton.View"
     d1p1:Ignorable="d"
     StartupUri="View/MainWindow.xaml">
     <Application.Resources>
@@ -29,7 +30,13 @@
             <!--  Typeography Sizes  -->
             <sys:Double x:Key="CardNumberSize">20</sys:Double>
             <sys:Double x:Key="CardHeaderSize">18</sys:Double>
-        </ResourceDictionary>
 
+            <!--  Converters  -->
+            <view:BoolToTextCompletionConverter x:Key="BoolToTextCompletionConverter" />
+            <view:BoolToColorCompletionConverter x:Key="BoolToColorCompletionConverter" />
+            <view:BoolToPackIconCompletetionConverter x:Key="BoolToPackIconCompletetionConverter" />
+            <view:BoolToInverseConverter x:Key="BoolToInverseConverter" />
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

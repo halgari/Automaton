@@ -1,10 +1,10 @@
 ﻿<!--  Optional installation GUI  -->
 <UserControl
-    x:Class="Automaton.View.SetupSteps.SetupStep3"
+    x:Class="Automaton.View.SetupStep3"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Automaton.View.SetupSteps"
+    xmlns:local="clr-namespace:Automaton.View"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="500"
@@ -144,9 +144,7 @@
                         <CheckBox FontFamily="{StaticResource RobotoMono}">Bison 8K HDDR</CheckBox>
                     </StackPanel>
                 </Grid>
-
             </StackPanel>
-
 
             <Grid Grid.Row="3">
                 <StackPanel Margin="5,5,5,5" Orientation="Horizontal">
@@ -173,8 +171,6 @@
                     Done
                 </Button>
             </Grid>
-
         </Grid>
     </materialDesign:Card>
-
 </UserControl>

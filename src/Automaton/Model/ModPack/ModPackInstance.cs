@@ -24,5 +24,31 @@ namespace Automaton.Model
                 }
             }
         }
+
+        private static string _MOInstallLocation = "";
+        public static string MOInstallLocation
+        {
+            get => _MOInstallLocation;
+            set
+            {
+                if (_MOInstallLocation != value)
+                {
+                    _MOInstallLocation = value;
+                }
+            }
+        }
+
+        private static string _SourceLocation = "";
+        public static string SourceLocation
+        {
+            get => _SourceLocation;
+            set
+            {
+                if (_SourceLocation != value)
+                {
+                    _SourceLocation = value;
+                }
+            }
+        }
     }
 }

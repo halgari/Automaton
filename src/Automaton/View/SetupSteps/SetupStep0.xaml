@@ -1,10 +1,10 @@
 ﻿<!--  Welcome page  -->
 <UserControl
-    x:Class="Automaton.View.SetupSteps.SetupStep0"
+    x:Class="Automaton.View.SetupStep0"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Automaton.View.SetupSteps"
+    xmlns:local="clr-namespace:Automaton.View"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="500"
@@ -17,6 +17,10 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <local:SetupStep0ViewModel />
+    </UserControl.DataContext>
 
     <materialDesign:Card
         HorizontalAlignment="Stretch"
@@ -89,26 +93,26 @@
                         Width="18"
                         Height="Auto"
                         VerticalAlignment="Center"
-                        Foreground="Orange"
-                        Kind="EmoticonSad" />
+                        Foreground="{Binding IsComplete, Converter={StaticResource BoolToColorCompletionConverter}}"
+                        Kind="{Binding IsComplete, Converter={StaticResource BoolToPackIconCompletetionConverter}}" />
 
                     <Label
                         VerticalAlignment="Center"
+                        Content="{Binding IsComplete, Converter={StaticResource BoolToTextCompletionConverter}}"
                         FontFamily="{StaticResource ProductSans}"
-                        FontSize="14">
-                        Not Completed
-                    </Label>
+                        FontSize="14" />
                 </StackPanel>
 
                 <Button
                     HorizontalAlignment="Right"
                     AllowDrop="False"
+                    Command="{Binding IncrementStepCommand}"
                     FontFamily="{StaticResource ProductSans}"
+                    IsEnabled="{Binding IsComplete, Converter={StaticResource BoolToInverseConverter}}"
                     Style="{DynamicResource MaterialDesignFlatButton}">
                     Alrighty
                 </Button>
             </Grid>
         </StackPanel>
     </materialDesign:Card>
-
 </UserControl>

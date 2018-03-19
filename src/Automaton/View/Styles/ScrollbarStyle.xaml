@@ -256,7 +256,6 @@
                             ViewportSize="{TemplateBinding ViewportWidth}"
                             Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
                             Value="{TemplateBinding HorizontalOffset}" />
-
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

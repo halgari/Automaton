@@ -10,6 +10,8 @@ namespace Automaton.View
         public MainWindow()
         {
             InitializeComponent();
+
+            MaxHeight = SystemParameters.WorkArea.Height;
         }
     }
 }

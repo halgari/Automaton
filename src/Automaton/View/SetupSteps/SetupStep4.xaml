@@ -1,10 +1,10 @@
 ﻿<!--  Welcome page  -->
 <UserControl
-    x:Class="Automaton.View.SetupSteps.SetupStep4"
+    x:Class="Automaton.View.SetupStep4"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Automaton.View.SetupSteps"
+    xmlns:local="clr-namespace:Automaton.View"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="500"
@@ -271,5 +271,4 @@
             </Grid>
         </StackPanel>
     </materialDesign:Card>
-
 </UserControl>

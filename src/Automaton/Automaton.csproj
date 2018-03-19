@@ -100,6 +100,9 @@
     <Compile Include="View\SetupSteps\SetupStep4.xaml.cs">
       <DependentUpon>SetupStep4.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SetupSteps\SetupStep5.xaml.cs">
+      <DependentUpon>SetupStep5.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -135,6 +138,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SetupSteps\SetupStep4.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SetupSteps\SetupStep5.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

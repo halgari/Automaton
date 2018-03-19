@@ -1,9 +1,11 @@
 ﻿using Automaton.Model;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,6 +43,11 @@ namespace Automaton.View
             IsEnabled = messengerType >= ThisStepType;
         }
 
+        private void IncrementStep()
+        {
+            SetupController.IncrementStep();
+        }
+
         private void OnRecieveModPack(ModPack modPack)
         {
             ModPackName = modPack.ModPackName;
@@ -56,11 +63,29 @@ namespace Automaton.View
 
             ModPackCount = tempSize.ToString();
             ContainsOptionalGUI = modPack.ContainsOptionalGUI.ToString();
+
+            IsComplete = true;
+            IncrementStep();
+
         }
 
         private void LoadModPack()
         {
+            var dialog = new OpenFileDialog()
+            {
+                Filter = "ModPack File Types (*.json;*.7z;*.rar;*.zip)|*.json;*.7z;*.rar;*.zip|All files (*.*)|*.*",
 
+            };
+
+            dialog.ShowDialog();
+
+            if (File.Exists(dialog.FileName))
+            {
+                IsLoading = true;
+                ModPackUtilities.LoadModPack(dialog.FileName);
+
+                IsLoading = false;
+            }
         }
     }
 }

@@ -80,17 +80,18 @@
                     <Label
                         VerticalAlignment="Center"
                         FontFamily="{DynamicResource RobotoMono}"
-                        Foreground="{StaticResource MaterialDesignPaper}">
+                        Foreground="{StaticResource MaterialDesignPaper}"
+                        Visibility="{Binding ModPackName, Converter={StaticResource NullOrEmptyVisibilityConverter}}">
                         &gt;&gt;
                     </Label>
 
                     <!--  ModPack Name  -->
                     <Label
                         VerticalAlignment="Center"
+                        Content="{Binding ModPackName}"
                         FontFamily="{DynamicResource RobotoMono}"
-                        Foreground="{StaticResource MaterialDesignPaper}">
-                        Ultimate Skyrim
-                    </Label>
+                        Foreground="{StaticResource MaterialDesignPaper}" />
+
                 </StackPanel>
 
                 <!--  Window control buttons  -->

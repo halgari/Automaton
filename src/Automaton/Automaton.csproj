@@ -95,8 +95,10 @@
     </ApplicationDefinition>
     <Compile Include="Model\ModPack\ModPackUtilities.cs" />
     <Compile Include="View\Controllers\SetupController.cs" />
+    <Compile Include="View\Converters\AppendTextBeforeBindingConverter.cs" />
     <Compile Include="View\Converters\BoolToCompletionConverter.cs" />
     <Compile Include="View\Converters\BoolToInverseConverter.cs" />
+    <Compile Include="View\Converters\NullOrEmptyVisibilityConverter.cs" />
     <Compile Include="View\MainWindowViewModel.cs" />
     <Compile Include="View\SetupSteps\SetupStep0.xaml.cs">
       <DependentUpon>SetupStep0.xaml</DependentUpon>

@@ -68,6 +68,7 @@
                     Height="40"
                     Margin="5,10,20,10"
                     HorizontalAlignment="Center"
+                    Command="{Binding LoadModPackCommand}"
                     FontFamily="{StaticResource ProductSans}">
                     <StackPanel Orientation="Horizontal">
                         <Image
@@ -93,28 +94,24 @@
                     Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </StackPanel>
 
-            <StackPanel>
-                <Label FontFamily="{StaticResource RobotoMono}">ModPack Name:</Label>
-                <Label FontFamily="{StaticResource RobotoMono}">ModPack Author:</Label>
-                <Label FontFamily="{StaticResource RobotoMono}">Mod Count:</Label>
-                <Label FontFamily="{StaticResource RobotoMono}">Estimated Installation Size:</Label>
-                <Label FontFamily="{StaticResource RobotoMono}">Contains Optional GUI:</Label>
-            </StackPanel>
+            <TextBlock>
+                <TextBlock Text="{Binding ModPackName}" />
+                has been loaded.
+            </TextBlock>
 
             <StackPanel Margin="5,10,5,5" Orientation="Horizontal">
                 <materialDesign:PackIcon
                     Width="18"
                     Height="Auto"
                     VerticalAlignment="Center"
-                    Foreground="Orange"
-                    Kind="EmoticonSad" />
+                    Foreground="{Binding IsComplete, Converter={StaticResource BoolToColorCompletionConverter}}"
+                    Kind="{Binding IsComplete, Converter={StaticResource BoolToPackIconCompletetionConverter}}" />
 
                 <Label
                     VerticalAlignment="Center"
+                    Content="{Binding IsComplete, Converter={StaticResource BoolToTextCompletionConverter}}"
                     FontFamily="{StaticResource ProductSans}"
-                    FontSize="14">
-                    Not Completed
-                </Label>
+                    FontSize="14" />
             </StackPanel>
         </StackPanel>
     </materialDesign:Card>

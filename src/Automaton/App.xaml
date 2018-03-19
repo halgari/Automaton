@@ -36,6 +36,8 @@
             <view:BoolToColorCompletionConverter x:Key="BoolToColorCompletionConverter" />
             <view:BoolToPackIconCompletetionConverter x:Key="BoolToPackIconCompletetionConverter" />
             <view:BoolToInverseConverter x:Key="BoolToInverseConverter" />
+            <view:AppendTextBeforeBindingConverter x:Key="AppendTextBeforeBindingConverter" />
+            <view:NullOrEmptyVisibilityConverter x:Key="NullOrEmptyVisibilityConverter" />
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>
     </Application.Resources>

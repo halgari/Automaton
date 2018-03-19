@@ -20,13 +20,8 @@ namespace Automaton.Model
         [JsonProperty("modpack_source_url")]
         public string ModPackSourceURL { get; set; }
 
-        [JsonIgnore]
-        // Contains the modpack installation location
-        public string ModPackInstallLocation { get; set; }
-
-        [JsonIgnore]
-        // Contains the default modpack source location
-        public string ModPackDefaultSourceLocation { get; set; }
+        [JsonProperty("contains_optional_gui")]
+        public bool ContainsOptionalGUI { get; set; }
 
         [JsonProperty("optional_gui")]
         public OptionalInstallation OptionalGUI { get; set; }

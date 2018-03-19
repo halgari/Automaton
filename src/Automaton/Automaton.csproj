@@ -93,6 +93,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\ModPack\ModPackUtilities.cs" />
     <Compile Include="View\Controllers\SetupController.cs" />
     <Compile Include="View\Converters\BoolToCompletionConverter.cs" />
     <Compile Include="View\Converters\BoolToInverseConverter.cs" />

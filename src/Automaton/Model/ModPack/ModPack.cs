@@ -5,6 +5,8 @@ namespace Automaton.Model
 {
     internal class ModPack
     {
+        #region Meta Modpack information
+
         [JsonProperty("automaton_version")]
         public string AutomatonVersion { get; set; }
 
@@ -20,19 +22,23 @@ namespace Automaton.Model
         [JsonProperty("modpack_source_url")]
         public string ModPackSourceURL { get; set; }
 
+        #endregion
+
+        // Contain relative sources to mod install folders. Note that lower indexes are installed before higher ones.
+        [JsonProperty("mod_install_folders")]
+        public List<string> ModInstallFolders { get; set; }
+
+        // Value must be set to true for the OptionalGUI to be processed and used.
         [JsonProperty("contains_optional_gui")]
         public bool ContainsOptionalGUI { get; set; }
 
         [JsonProperty("optional_gui")]
-        public OptionalInstallation OptionalGUI { get; set; }
-
-        [JsonProperty("mod_installations")]
-        public List<Mod> Mods { get; set; }
+        public OptionalGUI OptionalGUI { get; set; }
     }
 
     #region Optional Installation Objects
 
-    internal class OptionalInstallation
+    internal class OptionalGUI
     {
         [JsonProperty("default_image")]
         public string DefaultImage { get; set; }
@@ -61,8 +67,8 @@ namespace Automaton.Model
         [JsonProperty("control_text")]
         public string ControlText { get; set; }
 
-        [JsonProperty("control_checked")]
-        public bool? ControlChecked { get; set; }
+        [JsonProperty("is_control_checked")]
+        public bool? IsControlChecked { get; set; }
 
         [JsonProperty("control_hover_image")]
         public string ControlHoverImage { get; set; }
@@ -70,8 +76,8 @@ namespace Automaton.Model
         [JsonProperty("control_hover_description")]
         public string ControlHoverDescription { get; set; }
 
-        [JsonProperty("control_flags")]
-        public List<Flag> ControlFlags { get; set; }
+        [JsonProperty("control_actions")]
+        public List<Flag> ControlActions { get; set; }
     }
 
     internal class Flag
@@ -104,59 +110,10 @@ namespace Automaton.Model
     internal enum FlagActionType
     {
         Add,
+        Remove,
         Subtract,
         Set
     }
 
     #endregion Optional Installation Objects
-
-    #region Mod Objects
-
-    internal class Mod
-    {
-        [JsonProperty("mod_name")]
-        public string ModName { get; set; }
-
-        [JsonProperty("mod_archive_name")]
-        public string ModArchiveName { get; set; }
-
-        [JsonProperty("mod_archive_size")]
-        public string ModArchiveSize { get; set; }
-
-        [JsonProperty("archive_md5sum")]
-        public string ArchiveMD5Sum { get; set; }
-
-        [JsonIgnore]
-        // Contains the exact mod archive path (handled through model)
-        public string ModArchivePath { get; set; }
-
-        [JsonProperty("mod_source_url")]
-        public string ModSourceURL { get; set; }
-
-        [JsonProperty("installation_parameters")]
-        public List<Installation> InstallationParameters { get; set; }
-    }
-
-    internal class Installation
-    {
-        [JsonProperty("source_location")]
-        public string SourceLocation { get; set; }
-
-        [JsonProperty("target_location")]
-        public string TargetLocation { get; set; }
-
-        [JsonProperty("installation_conditions")]
-        public List<Conditional> InstallationConditions { get; set; }
-    }
-
-    internal class Conditional
-    {
-        [JsonProperty("conditional_flag_name")]
-        public string ConditionalFlagName { get; set; }
-
-        [JsonProperty("conditional_flag_value")]
-        public string ConditionalFlagValue { get; set; }
-    }
-
-    #endregion Mod Objects
 }

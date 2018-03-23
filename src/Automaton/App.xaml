@@ -39,6 +39,7 @@
             <view:AppendTextBeforeBindingConverter x:Key="AppendTextBeforeBindingConverter" />
             <view:NullOrEmptyVisibilityConverter x:Key="NullOrEmptyVisibilityConverter" />
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

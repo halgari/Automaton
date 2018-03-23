@@ -11,18 +11,7 @@ namespace Automaton.Model
     {
         public static void LoadModPack(string modPackPath)
         {
-            var modPack = new ModPack();
-
-
-            if (new FileInfo(modPackPath).Extension == ".json")
-            {
-                modPack = JSONHandler.DeserializeJson<ModPack>(File.ReadAllText(modPackPath));
-            }
-
-            else
-            {
-                modPack = LoadArchivedModPack(modPackPath);
-            }
+            var modPack = LoadArchivedModPack(modPackPath);
 
             ModPackInstance.ModPack = modPack;
         }

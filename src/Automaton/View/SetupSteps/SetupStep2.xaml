@@ -94,7 +94,7 @@
                     Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </StackPanel>
 
-            <TextBlock>
+            <TextBlock Visibility="{Binding ModPackName, Converter={StaticResource NullOrEmptyVisibilityConverter}}">
                 <TextBlock Text="{Binding ModPackName}" />
                 has been loaded.
             </TextBlock>

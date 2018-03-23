@@ -5,33 +5,36 @@ namespace Automaton.Model
 {
     internal class ArchiveHandler : IDisposable
     {
-        private string ArchivePath;
-        private string ExtractionPath;
-        private string SevenZipPath;
+        public string ArchivePath;
+        public string ExtractionPath;
+
+        private SevenZipHandler SevenZipHandler;
 
         private readonly string MetaDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-        public ArchiveHandler(string archivePath, string extractionPath)
+        public ArchiveHandler(string archivePath)
         {
-            ArchivePath = archivePath;
-            ExtractionPath = extractionPath;
-
-            SevenZipPath = Path.Combine(MetaDirectory, "7z.exe");
+            SevenZipHandler = new SevenZipHandler(archivePath);
         }
 
-        public bool Extract()
+        public bool ExtractArchive(string extractionPath)
         {
             return false;
         }
 
-        public ModPack ReadModPack()
+        public bool ExtractModPack()
         {
-            return null;
+            ExtractionPath = Path.Combine(MetaDirectory, new FileInfo(ArchivePath).Name);
+
+            return false;
         }
 
         public void Dispose()
         {
-            Directory.Delete(ExtractionPath, true);
+            if (Directory.Exists(ExtractionPath))
+            {
+                Directory.Delete(ExtractionPath, true);
+            }
         }
     }
 }

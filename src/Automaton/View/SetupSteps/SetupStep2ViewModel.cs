@@ -22,9 +22,6 @@ namespace Automaton.View
 
         public string ModPackName { get; set; }
         public string ModPackAuthor { get; set; }
-        public string ModPackCount { get; set; }
-        public string ModPackInstallSize { get; set; }
-        public string ContainsOptionalGUI { get; set; }
 
         public bool IsEnabled { get; set; } = false;
         public bool IsComplete { get; set; } = false;
@@ -52,17 +49,6 @@ namespace Automaton.View
         {
             ModPackName = modPack.ModPackName;
             ModPackAuthor = modPack.ModPackAuthor;
-            ModPackCount = modPack.Mods.Count.ToString();
-
-            var tempSize = 0;
-
-            foreach (var mod in modPack.Mods)
-            {
-                tempSize += Convert.ToInt32(mod.ModArchiveSize);
-            }
-
-            ModPackCount = tempSize.ToString();
-            ContainsOptionalGUI = modPack.ContainsOptionalGUI.ToString();
 
             IsComplete = true;
             IncrementStep();

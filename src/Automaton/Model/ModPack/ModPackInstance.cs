@@ -50,5 +50,18 @@ namespace Automaton.Model
                 }
             }
         }
+
+        private static string _ModPackExtractionLocation = "";
+        public static string ModPackExtractionLocation
+        {
+            get => _ModPackExtractionLocation;
+            set
+            {
+                if (_ModPackExtractionLocation != value)
+                {
+                    _ModPackExtractionLocation = value;
+                }
+            }
+        }
     }
 }

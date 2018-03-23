@@ -5,26 +5,33 @@ namespace Automaton.Model
 {
     internal class ArchiveHandler : IDisposable
     {
-        public string ArchivePath;
-        public string ExtractionPath;
-
         private SevenZipHandler SevenZipHandler;
 
         private readonly string MetaDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+        private bool IsModPack;
+
+        public string ExtractionPath;
 
         public ArchiveHandler(string archivePath)
         {
             SevenZipHandler = new SevenZipHandler(archivePath);
         }
 
-        public bool ExtractArchive(string extractionPath)
+        public bool ExtractArchive()
         {
+            IsModPack = false;
+            ExtractionPath = Path.Combine(MetaDirectory, "extract");
+
             return false;
         }
 
         public bool ExtractModPack()
         {
-            ExtractionPath = Path.Combine(MetaDirectory, new FileInfo(ArchivePath).Name);
+            IsModPack = true;
+            ExtractionPath = Path.Combine(MetaDirectory, "modpack_temp");
+
+            SevenZipHandler.Extract(ExtractionPath);
 
             return false;
         }

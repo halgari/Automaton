@@ -13,12 +13,16 @@ namespace Automaton.Model
         {
             var modPack = LoadArchivedModPack(modPackPath);
 
-            ModPackInstance.ModPack = modPack;
+            //ModPackInstance.ModPack = modPack;
         }
 
         private static ModPack LoadArchivedModPack(string modPackPath)
         {
-
+            using (var extractionHandler = new ArchiveHandler(modPackPath))
+            {
+                extractionHandler.ExtractModPack();
+                ModPackInstance.ModPackExtractionLocation = extractionHandler.ExtractionPath;
+            }
 
             return null;
         }

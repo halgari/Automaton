@@ -93,9 +93,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\Handles\SevenZipHandler.cs" />
     <Compile Include="Model\ModPack\Mod.cs" />
-    <Compile Include="Model\ModPack\ModPackUtilities.cs" />
+    <Compile Include="Model\ModPack\ModpackUtilities.cs" />
     <Compile Include="View\Controllers\SetupController.cs" />
     <Compile Include="View\Converters\AppendTextBeforeBindingConverter.cs" />
     <Compile Include="View\Converters\BoolToCompletionConverter.cs" />
@@ -133,10 +132,9 @@
     </Compile>
     <Compile Include="Model\Handles\ArchiveHandler.cs" />
     <Compile Include="Model\Handles\JSONHandler.cs" />
-    <Compile Include="Model\ModPack\ModPackHandler.cs" />
     <Compile Include="Model\Messengers\MessengerService.cs" />
-    <Compile Include="Model\ModPack\ModPack.cs" />
-    <Compile Include="Model\ModPack\ModPackInstance.cs" />
+    <Compile Include="Model\ModPack\ModpackHeader.cs" />
+    <Compile Include="Model\ModPack\ModpackInstance.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

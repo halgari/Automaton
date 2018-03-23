@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Automaton.Model
 {
-    internal class ModPack
+    internal class ModpackHeader
     {
         #region Meta Modpack information
 
@@ -11,18 +11,18 @@ namespace Automaton.Model
         public string AutomatonVersion { get; set; }
 
         [JsonProperty("modpack_name")]
-        public string ModPackName { get; set; }
+        public string ModpackName { get; set; }
 
         [JsonProperty("modpack_author")]
-        public string ModPackAuthor { get; set; }
+        public string ModpackAuthor { get; set; }
 
         [JsonProperty("modpack_version")]
-        public string ModPackVersion { get; set; }
+        public string ModpackVersion { get; set; }
 
         [JsonProperty("modpack_source_url")]
-        public string ModPackSourceURL { get; set; }
+        public string ModpackSourceURL { get; set; }
 
-        #endregion
+        #endregion Meta Modpack information
 
         // Contain relative sources to mod install folders. Note that lower indexes are installed before higher ones.
         [JsonProperty("mod_install_folders")]

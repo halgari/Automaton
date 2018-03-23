@@ -2,21 +2,16 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Automaton.View
 {
-    class SetupStep2ViewModel : INotifyPropertyChanged
+    internal class SetupStep2ViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public RelayCommand LoadModPackCommand { get; set; }
+        public RelayCommand LoadModpackCommand { get; set; }
 
         private SetupStep ThisStepType { get => SetupStep.Step2; }
 
@@ -29,10 +24,10 @@ namespace Automaton.View
 
         public SetupStep2ViewModel()
         {
-            LoadModPackCommand = new RelayCommand(LoadModPack);
+            LoadModpackCommand = new RelayCommand(LoadModpack);
 
             Messenger.Default.Register<SetupStep>(this, MessengerTypes.SetupStepUpdate, OnRecieveStep);
-            Messenger.Default.Register<ModPack>(this, MessengerTypes.ModPackUpdate, OnRecieveModPack);
+            Messenger.Default.Register<ModpackHeader>(this, MessengerTypes.ModpackHeaderUpdate, OnRecieveModpack);
         }
 
         private void OnRecieveStep(SetupStep messengerType)
@@ -45,22 +40,20 @@ namespace Automaton.View
             SetupController.IncrementStep();
         }
 
-        private void OnRecieveModPack(ModPack modPack)
+        private void OnRecieveModpack(ModpackHeader modPack)
         {
-            ModPackName = modPack.ModPackName;
-            ModPackAuthor = modPack.ModPackAuthor;
+            ModPackName = modPack.ModpackName;
+            ModPackAuthor = modPack.ModpackAuthor;
 
             IsComplete = true;
             IncrementStep();
-
         }
 
-        private void LoadModPack()
+        private void LoadModpack()
         {
             var dialog = new OpenFileDialog()
             {
-                Filter = "ModPack File Types (*.json;*.7z;*.rar;*.zip)|*.json;*.7z;*.rar;*.zip|All files (*.*)|*.*",
-
+                Filter = "ModPack File Types (.7z, .rar, .zip)|*.7z;*.rar;*.zip|All files (*.*)|*.*",
             };
 
             dialog.ShowDialog();
@@ -68,7 +61,7 @@ namespace Automaton.View
             if (File.Exists(dialog.FileName))
             {
                 IsLoading = true;
-                ModPackUtilities.LoadModPack(dialog.FileName);
+                ModpackUtilities.LoadModPack(dialog.FileName);
 
                 IsLoading = false;
             }

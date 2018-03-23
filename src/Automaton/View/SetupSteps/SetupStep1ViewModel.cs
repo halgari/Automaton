@@ -21,6 +21,7 @@ namespace Automaton.View
         private SetupStep ThisStepType { get => SetupStep.Step1; }
 
         private string _MOExePath;
+
         public string MOExePath
         {
             get => _MOExePath;
@@ -36,6 +37,7 @@ namespace Automaton.View
         }
 
         private string _SourcePath;
+
         public string SourcePath
         {
             get => _SourcePath;
@@ -110,10 +112,9 @@ namespace Automaton.View
                 IsComplete = true;
                 SetupController.IncrementStep();
 
-                ModPackInstance.MOInstallLocation = Path.Combine(new FileInfo(MOExePath).DirectoryName, "mods");
-                ModPackInstance.SourceLocation = SourcePath;
+                ModpackInstance.MOInstallLocation = Path.Combine(new FileInfo(MOExePath).DirectoryName, "mods");
+                ModpackInstance.SourceLocation = SourcePath;
             }
-
             else
             {
                 IsComplete = false;

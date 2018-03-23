@@ -68,7 +68,7 @@
                     Height="40"
                     Margin="5,10,20,10"
                     HorizontalAlignment="Center"
-                    Command="{Binding LoadModPackCommand}"
+                    Command="{Binding LoadModpackCommand}"
                     FontFamily="{StaticResource ProductSans}">
                     <StackPanel Orientation="Horizontal">
                         <Image

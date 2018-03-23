@@ -1,8 +1,8 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using Automaton.Model;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using System.Windows;
-using Automaton.Model;
 using System.ComponentModel;
+using System.Windows;
 
 namespace Automaton.View
 {
@@ -16,7 +16,7 @@ namespace Automaton.View
         public RelayCommand<Window> ResizeWindowCommand { get; set; }
         public RelayCommand<Window> CloseWindowCommand { get; set; }
 
-        public string ModPackName { get; set; }
+        public string ModpackName { get; set; }
 
         public MainWindowViewModel()
         {
@@ -26,14 +26,14 @@ namespace Automaton.View
             ResizeWindowCommand = new RelayCommand<Window>(WindowDoubleClick);
             CloseWindowCommand = new RelayCommand<Window>(CloseWindow);
 
-            Messenger.Default.Register<ModPack>(this, MessengerTypes.ModPackUpdate, OnModPackUpdate);
+            Messenger.Default.Register<ModpackHeader>(this, MessengerTypes.ModpackHeaderUpdate, OnModpackUpdate);
         }
 
-        private void OnModPackUpdate(ModPack modPack)
+        private void OnModpackUpdate(ModpackHeader modPack)
         {
-            if (ModPackName != modPack.ModPackName)
+            if (ModpackName != modPack.ModpackName)
             {
-                ModPackName = modPack.ModPackName;
+                ModpackName = modPack.ModpackName;
             }
         }
 

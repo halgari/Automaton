@@ -6,7 +6,7 @@
 
     internal enum MessengerTypes
     {
-        ModPackUpdate,
+        ModpackHeaderUpdate,
         SetupStepUpdate
     }
 }

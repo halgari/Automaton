@@ -81,17 +81,16 @@
                         VerticalAlignment="Center"
                         FontFamily="{DynamicResource RobotoMono}"
                         Foreground="{StaticResource MaterialDesignPaper}"
-                        Visibility="{Binding ModPackName, Converter={StaticResource NullOrEmptyVisibilityConverter}}">
+                        Visibility="{Binding ModpackName, Converter={StaticResource NullOrEmptyVisibilityConverter}}">
                         &gt;&gt;
                     </Label>
 
                     <!--  ModPack Name  -->
                     <Label
                         VerticalAlignment="Center"
-                        Content="{Binding ModPackName}"
+                        Content="{Binding ModpackName}"
                         FontFamily="{DynamicResource RobotoMono}"
                         Foreground="{StaticResource MaterialDesignPaper}" />
-
                 </StackPanel>
 
                 <!--  Window control buttons  -->

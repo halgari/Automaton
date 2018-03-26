@@ -17,6 +17,9 @@ namespace Automaton.Model
         [JsonProperty("mod_archive_size")]
         public string ModArchiveSize { get; set; }
 
+        [JsonIgnore]
+        public string ModArchivePath { get; set; }
+
         [JsonProperty("archive_md5sum")]
         public string ArchiveMD5Sum { get; set; }
 

@@ -98,6 +98,7 @@
     <Compile Include="Model\Extensions\PathExtensions.cs" />
     <Compile Include="Model\ModPack\Mod.cs" />
     <Compile Include="Model\ModPack\ModpackUtilities.cs" />
+    <Compile Include="View\Controllers\ScrollController.cs" />
     <Compile Include="View\Controllers\SetupController.cs" />
     <Compile Include="View\Converters\AppendTextBeforeBindingConverter.cs" />
     <Compile Include="View\Converters\BoolToCompletionConverter.cs" />

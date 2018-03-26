@@ -60,7 +60,7 @@ namespace Automaton.Model
                 return;
             }
 
-            // Out to log or error handler, not breaking issue, but can cause installation issues
+            // Out to log or error handler, not a breaking issue, but may cause installation issues
             if (existingModInstallFolders.Count() != modInstallFolders.Count())
             {
                 // TODO
@@ -85,6 +85,7 @@ namespace Automaton.Model
                 }
             }
 
+            // Set global instances, these will update viewmodels automatically via the message service
             ModpackInstance.ModpackHeader = modpackHeader;
             ModpackInstance.ModpackMods = modpackMods;
 

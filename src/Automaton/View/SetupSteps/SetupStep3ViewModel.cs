@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Automaton.View.SetupSteps
+namespace Automaton.View
 {
     class SetupStep3ViewModel : INotifyPropertyChanged
     {
@@ -42,6 +42,7 @@ namespace Automaton.View.SetupSteps
             }
 
             OptionalGUI = modpack.OptionalGUI;
+
         }
     }
 }

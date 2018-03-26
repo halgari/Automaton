@@ -56,10 +56,10 @@ namespace Automaton.Model
         public string GroupHeaderText { get; set; }
 
         [JsonProperty("group_controls")]
-        public List<Control> GroupControls { get; set; }
+        public List<GroupControl> GroupControls { get; set; }
     }
 
-    internal class Control
+    internal class GroupControl
     {
         [JsonProperty("control_type")]
         public ControlType ControlType { get; set; }

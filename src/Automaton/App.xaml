@@ -38,6 +38,8 @@
             <view:BoolToInverseConverter x:Key="BoolToInverseConverter" />
             <view:AppendTextBeforeBindingConverter x:Key="AppendTextBeforeBindingConverter" />
             <view:NullOrEmptyVisibilityConverter x:Key="NullOrEmptyVisibilityConverter" />
+            <view:OptionalGUIToControlConverter x:Key="OptionalGUIToControlConverter" />
+            <view:GroupControlToControlConverter x:Key="GroupControlToControlConverter" />
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>
     </Application.Resources>

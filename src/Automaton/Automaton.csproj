@@ -103,7 +103,9 @@
     <Compile Include="View\Converters\AppendTextBeforeBindingConverter.cs" />
     <Compile Include="View\Converters\BoolToCompletionConverter.cs" />
     <Compile Include="View\Converters\BoolToInverseConverter.cs" />
+    <Compile Include="View\Converters\GroupControlToControlConverter.cs" />
     <Compile Include="View\Converters\NullOrEmptyVisibilityConverter.cs" />
+    <Compile Include="View\Converters\OptionalGUIToControlConverter.cs" />
     <Compile Include="View\MainWindowViewModel.cs" />
     <Compile Include="View\SetupSteps\SetupStep0.xaml.cs">
       <DependentUpon>SetupStep0.xaml</DependentUpon>
@@ -120,6 +122,7 @@
     <Compile Include="View\SetupSteps\SetupStep3.xaml.cs">
       <DependentUpon>SetupStep3.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SetupSteps\SetupStep3ViewModel.cs" />
     <Compile Include="View\SetupSteps\SetupStep4.xaml.cs">
       <DependentUpon>SetupStep4.xaml</DependentUpon>
     </Compile>

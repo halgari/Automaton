@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace Automaton.Model
 {
-    static class PathExtensions
+    internal static class PathExtensions
     {
         public static string StandardizePathSeparators(this string inputString)
         {

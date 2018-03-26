@@ -95,8 +95,10 @@
                                     FontFamily="{StaticResource ProductSans}"
                                     FontSize="16" />
 
+                                <!--  List of converted controls  -->
                                 <ListBox
                                     Grid.Row="1"
+                                    Grid.Column="1"
                                     Margin="10,0,0,10"
                                     ItemsSource="{Binding GroupControls, Converter={StaticResource GroupControlToControlConverter}}">
                                     <ListBox.ItemContainerStyle>
@@ -114,7 +116,6 @@
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
-
                 </ItemsControl>
             </StackPanel>
 

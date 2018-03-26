@@ -27,7 +27,6 @@ namespace Automaton.Model
             {
                 return DeserializeJson<T>(jsonContent);
             }
-
             catch (Exception e)
             {
                 parseError = e.Message;
@@ -46,7 +45,5 @@ namespace Automaton.Model
         {
             return JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
         }
-
-
     }
 }

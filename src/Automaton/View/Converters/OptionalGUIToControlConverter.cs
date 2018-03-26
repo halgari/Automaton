@@ -1,15 +1,11 @@
 ﻿using Automaton.Model;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace Automaton.View
 {
-    class OptionalGUIToControlConverter : IValueConverter
+    internal class OptionalGUIToControlConverter : IValueConverter
     {
         /// <summary>
         /// Converts a standard OptionalGUI object to a list of control groups. Headers with child input controls (checkbox, radiobutton)

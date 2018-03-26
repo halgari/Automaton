@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Automaton.Model
 {
-    class GenericErrorHandler
+    internal class GenericErrorHandler
     {
         public static void Throw(GenericErrorType genericErrorType, string message, StackTrace stackTrace)
         {
@@ -21,6 +17,5 @@ namespace Automaton.Model
         Generic,
         JSONParse,
         ModpackStructure,
-
     }
 }

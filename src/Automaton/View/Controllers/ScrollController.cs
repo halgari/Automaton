@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Automaton.View.Controllers
+﻿namespace Automaton.View.Controllers
 {
-    class ScrollController
+    internal class ScrollController
     {
         public int CurrentScrollPosition { get; set; }
     }

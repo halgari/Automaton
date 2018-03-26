@@ -27,7 +27,7 @@ namespace Automaton.Model
 
             ModpackInstance.ModpackExtractionLocation = modpackExtractionPath;
 
-            // Load the modpack header 
+            // Load the modpack header
             var modpackHeaderPath = Path.Combine(modpackExtractionPath, $"modpack.{Settings.Default.AutomatonHeaderExtension}");
 
             if (!File.Exists(modpackHeaderPath))

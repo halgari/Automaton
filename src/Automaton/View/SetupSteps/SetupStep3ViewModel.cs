@@ -1,15 +1,10 @@
 ﻿using Automaton.Model;
 using GalaSoft.MvvmLight.Messaging;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Automaton.View
 {
-    class SetupStep3ViewModel : INotifyPropertyChanged
+    internal class SetupStep3ViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -42,7 +37,6 @@ namespace Automaton.View
             }
 
             OptionalGUI = modpack.OptionalGUI;
-
         }
     }
 }

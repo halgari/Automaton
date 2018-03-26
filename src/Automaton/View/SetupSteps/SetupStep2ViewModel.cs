@@ -53,7 +53,7 @@ namespace Automaton.View
         {
             var dialog = new OpenFileDialog()
             {
-                Filter = "ModPack File Types (.7z, .rar, .zip)|*.7z;*.rar;*.zip|All files (*.*)|*.*",
+                Filter = "Automaton Modpack (*.auto)|*.auto|All files (*.*)|*.*",
             };
 
             dialog.ShowDialog();

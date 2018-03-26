@@ -1,7 +1,15 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Automaton.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="AutomatonHeaderExtension" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">auto_header</Value>
+    </Setting>
+    <Setting Name="AutomatonModExtension" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">auto_mod</Value>
+    </Setting>
+    <Setting Name="AutomatonModpackExtension" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">auto</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

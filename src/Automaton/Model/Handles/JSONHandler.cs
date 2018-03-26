@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace Automaton.Model
 {
@@ -17,6 +18,24 @@ namespace Automaton.Model
             return deserializedJson;
         }
 
+        public static T TryDeserializeJson<T>(string jsonContent, out string parseError)
+            where T : new()
+        {
+            parseError = string.Empty;
+
+            try
+            {
+                return DeserializeJson<T>(jsonContent);
+            }
+
+            catch (Exception e)
+            {
+                parseError = e.Message;
+
+                return new T();
+            }
+        }
+
         /// <summary>
         /// Serialize object of type T into string
         /// </summary>
@@ -27,5 +46,7 @@ namespace Automaton.Model
         {
             return JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
         }
+
+
     }
 }

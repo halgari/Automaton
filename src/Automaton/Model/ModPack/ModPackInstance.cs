@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
+using System.Collections.Generic;
 
 namespace Automaton.Model
 {
@@ -21,6 +22,20 @@ namespace Automaton.Model
 
                     // Fires an event off via the MessengerService which updates subscribed variables
                     Messenger.Default.Send(ModpackHeader, MessengerTypes.ModpackHeaderUpdate);
+                }
+            }
+        }
+
+        private static List<Mod> _ModpackMods = new List<Mod>();
+
+        public static List<Mod> ModpackMods
+        {
+            get => _ModpackMods;
+            set
+            {
+                if (_ModpackMods != value)
+                {
+                    _ModpackMods = value;
                 }
             }
         }

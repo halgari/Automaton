@@ -20,11 +20,11 @@ namespace Automaton.Model
         [JsonProperty("archive_md5sum")]
         public string ArchiveMD5Sum { get; set; }
 
-        [JsonProperty("archive_id")]
-        public ArchiveID ArchiveID { get; set; }
-
         [JsonProperty("mod_source_url")]
         public string ModSourceURL { get; set; }
+
+        [JsonProperty("archive_id")]
+        public ArchiveID ArchiveID { get; set; }
 
         [JsonProperty("installation_parameters")]
         public List<Installation> InstallationParameters { get; set; }

@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Automaton.Properties;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace Automaton.Model
 {
@@ -11,23 +14,79 @@ namespace Automaton.Model
         /// <param name="modpackPath"></param>
         public static void LoadModPack(string modpackPath)
         {
+            var modpackExtractionPath = string.Empty;
+            var modpackHeader = new ModpackHeader();
+            var modpackMods = new List<Mod>();
+
             // Extract the modpack archive out to a temp folder
             using (var extractionHandler = new ArchiveHandler(modpackPath))
             {
                 extractionHandler.ExtractModpack();
-                ModpackInstance.ModpackExtractionLocation = extractionHandler.ModpackExtractionPath;
+                modpackExtractionPath = extractionHandler.ModpackExtractionPath;
             }
 
-            // Load the modpack header
-            var modpackHeaderPath = Path.Combine(ModpackInstance.ModpackExtractionLocation, "modpack.auto");
+            ModpackInstance.ModpackExtractionLocation = modpackExtractionPath;
 
-            // TODO: Requires exception handling
+            // Load the modpack header
+            var modpackHeaderPath = Path.Combine(modpackExtractionPath, $"modpack.{Settings.Default.AutomatonHeaderExtension}");
+
             if (!File.Exists(modpackHeaderPath))
             {
+                GenericErrorHandler.Throw(GenericErrorType.ModpackStructure, "Valid modpack.auto_header was not found.", new StackTrace());
                 return;
             }
 
-            ModpackInstance.ModpackHeader = JSONHandler.DeserializeJson<ModpackHeader>(File.ReadAllText(modpackHeaderPath));
+            // Load modpack header into Instance
+            modpackHeader = JSONHandler.TryDeserializeJson<ModpackHeader>(File.ReadAllText(modpackHeaderPath), out string parseError);
+
+            // The json string was not parsed correctly, throw error
+            if (parseError != string.Empty)
+            {
+                GenericErrorHandler.Throw(GenericErrorType.JSONParse, parseError, new StackTrace());
+                return;
+            }
+
+            // Detect for mod install directories outlined by ModInstallFolders
+            var modInstallFolders = modpackHeader.ModInstallFolders
+                .Select(x => Path.Combine(modpackExtractionPath, x).StandardizePathSeparators());
+
+            var existingModInstallFolders = modInstallFolders
+                .Where(x => Directory.Exists(x) && Directory.GetFiles(x, $"*{Settings.Default.AutomatonModExtension}").Count() > 0);
+
+            // Check for any valid values
+            if (!existingModInstallFolders.ContainsAny())
+            {
+                GenericErrorHandler.Throw(GenericErrorType.ModpackStructure, "mod_install_folders not found in modpack.", new StackTrace());
+                return;
+            }
+
+            // Out to log or error handler, not breaking issue, but can cause installation issues
+            if (existingModInstallFolders.Count() != modInstallFolders.Count())
+            {
+                // TODO
+            }
+
+            // Parse existingModInstallFolders and return any valid mod structures
+            foreach (var folder in existingModInstallFolders)
+            {
+                var modFiles = Directory.GetFiles(folder, $"*{Settings.Default.AutomatonModExtension}");
+
+                foreach (var modFile in modFiles)
+                {
+                    var modObject = JSONHandler.TryDeserializeJson<Mod>(File.ReadAllText(modFile), out parseError);
+
+                    if (parseError != string.Empty)
+                    {
+                        GenericErrorHandler.Throw(GenericErrorType.JSONParse, parseError, new StackTrace());
+                        return;
+                    }
+
+                    modpackMods.Add(modObject);
+                }
+            }
+
+            ModpackInstance.ModpackHeader = modpackHeader;
+            ModpackInstance.ModpackMods = modpackMods;
 
             return;
         }

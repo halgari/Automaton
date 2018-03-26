@@ -36,7 +36,7 @@ namespace Automaton.View
             }
         }
 
-        private string _SourcePath;
+        public string _SourcePath;
 
         public string SourcePath
         {

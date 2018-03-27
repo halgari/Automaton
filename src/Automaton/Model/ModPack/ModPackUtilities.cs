@@ -92,6 +92,11 @@ namespace Automaton.Model
             return;
         }
 
+        public static void UpdateModInstallParameters()
+        {
+
+        }
+
         /// <summary>
         /// Returns a list of type <see cref="Mod"/> which contains mods that were not able to be found in the standard source directory
         /// </summary>
@@ -139,6 +144,32 @@ namespace Automaton.Model
         /// <returns></returns>
         public static void PatchModArchivePath(Mod mod, string path)
         {
+
+        }
+
+
+        /// <summary>
+        /// Adds a new ModInstallFolder to the instance
+        /// </summary>
+        /// <param name="path"></param>
+        public static void AddModInstallFolder(string path)
+        {
+            var tempModpackHeader = ModpackInstance.ModpackHeader;
+            tempModpackHeader.ModInstallFolders.Add(path);
+
+            ModpackInstance.ModpackHeader = tempModpackHeader;
+        }
+
+        /// <summary>
+        /// Removes a ModInstallFolder from the instance
+        /// </summary>
+        /// <param name="path"></param>
+        public static void RemoveModInstallFolder(string path)
+        {
+            var tempModpackHeader = ModpackInstance.ModpackHeader;
+            tempModpackHeader.ModInstallFolders.RemoveAll(x => x == path);
+
+            ModpackInstance.ModpackHeader = tempModpackHeader;
         }
     }
 }

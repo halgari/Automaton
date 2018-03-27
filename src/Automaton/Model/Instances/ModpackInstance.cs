@@ -8,7 +8,7 @@ namespace Automaton.Model
         /// <summary>
         /// Global modpack object
         /// </summary>
-        private static ModpackHeader _ModpackHeader = new ModpackHeader();
+        private static ModpackHeader _ModpackHeader;
 
         public static ModpackHeader ModpackHeader
         {
@@ -21,12 +21,12 @@ namespace Automaton.Model
                     _ModpackHeader = value;
 
                     // Fires an event off via the MessengerService which updates subscribed variables
-                    Messenger.Default.Send(ModpackHeader, MessengerTypes.ModpackHeaderUpdate);
+                    Messenger.Default.Send(_ModpackHeader, MessengerTypes.ModpackHeaderUpdate);
                 }
             }
         }
 
-        private static List<Mod> _ModpackMods = new List<Mod>();
+        private static List<Mod> _ModpackMods;
 
         public static List<Mod> ModpackMods
         {

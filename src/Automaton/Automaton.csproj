@@ -96,6 +96,7 @@
     <Compile Include="Model\Errors\GenericErrorHandler.cs" />
     <Compile Include="Model\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Model\Extensions\PathExtensions.cs" />
+    <Compile Include="Model\Instances\FlagInstance.cs" />
     <Compile Include="Model\ModPack\Mod.cs" />
     <Compile Include="Model\ModPack\ModpackUtilities.cs" />
     <Compile Include="View\Controllers\ScrollController.cs" />
@@ -141,7 +142,7 @@
     <Compile Include="Model\Handles\JSONHandler.cs" />
     <Compile Include="Model\Messengers\MessengerService.cs" />
     <Compile Include="Model\ModPack\ModpackHeader.cs" />
-    <Compile Include="Model\ModPack\ModpackInstance.cs" />
+    <Compile Include="Model\Instances\ModpackInstance.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

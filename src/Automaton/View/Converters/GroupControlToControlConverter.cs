@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Interactivity;
 
 namespace Automaton.View
 {
@@ -27,9 +28,13 @@ namespace Automaton.View
                         CommandParameter = groupControl
                     };
 
-                    //controlList.Add(control);
+                    control.Checked += SetupStep3ViewModel.Control_Checked;
+                    control.Unchecked += SetupStep3ViewModel.Control_Unchecked;
+                    control.MouseEnter += SetupStep3ViewModel.Control_Hover;
+
                     stackPanel.Children.Add(control);
                 }
+
                 else if (groupControl.ControlType == ControlType.RadioButton)
                 {
                     var control = new RadioButton()
@@ -39,7 +44,10 @@ namespace Automaton.View
                         CommandParameter = groupControl
                     };
 
-                    //controlList.Add(control);
+                    control.Checked += SetupStep3ViewModel.Control_Checked;
+                    control.Unchecked += SetupStep3ViewModel.Control_Unchecked;
+                    control.MouseEnter += SetupStep3ViewModel.Control_Hover;
+
                     stackPanel.Children.Add(control);
                 }
             }

@@ -49,5 +49,17 @@ namespace Automaton.Properties {
                 return ((string)(this["AutomatonModpackExtension"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("$")]
+        public string ApplicationFlagPrefix {
+            get {
+                return ((string)(this["ApplicationFlagPrefix"]));
+            }
+            set {
+                this["ApplicationFlagPrefix"] = value;
+            }
+        }
     }
 }

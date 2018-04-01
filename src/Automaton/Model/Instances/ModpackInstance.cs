@@ -81,5 +81,33 @@ namespace Automaton.Model
                 }
             }
         }
+
+        #region Modification Methods
+
+        /// <summary>
+        /// Adds a new ModInstallFolder to the instance
+        /// </summary>
+        /// <param name="path"></param>
+        public static void AddModInstallFolder(string path)
+        {
+            var tempModpackHeader = ModpackInstance.ModpackHeader;
+            tempModpackHeader.ModInstallFolders.Add(path);
+
+            ModpackInstance.ModpackHeader = tempModpackHeader;
+        }
+
+        /// <summary>
+        /// Removes a ModInstallFolder from the instance
+        /// </summary>
+        /// <param name="path"></param>
+        public static void RemoveModInstallFolder(string path)
+        {
+            var tempModpackHeader = ModpackInstance.ModpackHeader;
+            tempModpackHeader.ModInstallFolders.RemoveAll(x => x == path);
+
+            ModpackInstance.ModpackHeader = tempModpackHeader;
+        }
+
+        #endregion
     }
 }

@@ -81,12 +81,12 @@ namespace Automaton.Model
             {
                 if (flagActionType == FlagActionType.Add)
                 {
-                    ModpackUtilities.AddModInstallFolder(flagValue);
+                    ModpackInstance.AddModInstallFolder(flagValue);
                 }
 
                 else if (flagActionType == FlagActionType.Remove)
                 {
-                    ModpackUtilities.RemoveModInstallFolder(flagValue);
+                    ModpackInstance.RemoveModInstallFolder(flagValue);
                 }
             }
         }

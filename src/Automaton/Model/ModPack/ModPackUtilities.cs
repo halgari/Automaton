@@ -46,6 +46,23 @@ namespace Automaton.Model
                 return;
             }
 
+            // Set global instances, these will update viewmodels automatically via the message service
+            ModpackInstance.ModpackHeader = modpackHeader;
+            ModpackInstance.ModpackMods = LoadModInstallParameters(modpackHeader, modpackExtractionPath);
+
+            return;
+        }
+
+        /// <summary>
+        /// Loads and returns list of Mod objects
+        /// </summary>
+        /// <param name="modpackHeader"></param>
+        /// <param name="modpackExtractionPath"></param>
+        /// <returns></returns>
+        private static List<Mod> LoadModInstallParameters(ModpackHeader modpackHeader, string modpackExtractionPath)
+        {
+            var modpackMods = new List<Mod>();
+
             // Detect for mod install directories outlined by ModInstallFolders
             var modInstallFolders = modpackHeader.ModInstallFolders
                 .Select(x => Path.Combine(modpackExtractionPath, x).StandardizePathSeparators());
@@ -57,7 +74,7 @@ namespace Automaton.Model
             if (!existingModInstallFolders.ContainsAny())
             {
                 GenericErrorHandler.Throw(GenericErrorType.ModpackStructure, "mod_install_folders not found in modpack.", new StackTrace());
-                return;
+                return null;
             }
 
             // Out to log or error handler, not a breaking issue, but may cause installation issues
@@ -73,28 +90,32 @@ namespace Automaton.Model
 
                 foreach (var modFile in modFiles)
                 {
-                    var modObject = JSONHandler.TryDeserializeJson<Mod>(File.ReadAllText(modFile), out parseError);
+                    var modObject = JSONHandler.TryDeserializeJson<Mod>(File.ReadAllText(modFile), out string parseError);
+
+                    modObject.ModInstallParameterPath = modFile;
 
                     if (parseError != string.Empty)
                     {
                         GenericErrorHandler.Throw(GenericErrorType.JSONParse, parseError, new StackTrace());
-                        return;
+                        return null;
                     }
 
                     modpackMods.Add(modObject);
                 }
             }
 
-            // Set global instances, these will update viewmodels automatically via the message service
-            ModpackInstance.ModpackHeader = modpackHeader;
-            ModpackInstance.ModpackMods = modpackMods;
-
-            return;
+            return modpackMods;
         }
 
+        /// <summary>
+        /// Updates <see cref="ModpackHeader"/> mod list value with correct built paths
+        /// </summary>
         public static void UpdateModInstallParameters()
         {
+            var modpackHeader = ModpackInstance.ModpackHeader;
+            var modpackExtractionPath = ModpackInstance.ModpackExtractionLocation;
 
+            ModpackInstance.ModpackMods = LoadModInstallParameters(modpackHeader, modpackExtractionPath);
         }
 
         /// <summary>
@@ -104,6 +125,13 @@ namespace Automaton.Model
         /// <returns></returns>
         public static List<Mod> GetModsWithMissingArchives(string sourceDirectory)
         {
+            var modInstallParameters = ModpackInstance.ModpackMods;
+
+            foreach (var mod in modInstallParameters)
+            {
+
+            }
+
             return null;
         }
 
@@ -145,31 +173,6 @@ namespace Automaton.Model
         public static void PatchModArchivePath(Mod mod, string path)
         {
 
-        }
-
-
-        /// <summary>
-        /// Adds a new ModInstallFolder to the instance
-        /// </summary>
-        /// <param name="path"></param>
-        public static void AddModInstallFolder(string path)
-        {
-            var tempModpackHeader = ModpackInstance.ModpackHeader;
-            tempModpackHeader.ModInstallFolders.Add(path);
-
-            ModpackInstance.ModpackHeader = tempModpackHeader;
-        }
-
-        /// <summary>
-        /// Removes a ModInstallFolder from the instance
-        /// </summary>
-        /// <param name="path"></param>
-        public static void RemoveModInstallFolder(string path)
-        {
-            var tempModpackHeader = ModpackInstance.ModpackHeader;
-            tempModpackHeader.ModInstallFolders.RemoveAll(x => x == path);
-
-            ModpackInstance.ModpackHeader = tempModpackHeader;
         }
     }
 }

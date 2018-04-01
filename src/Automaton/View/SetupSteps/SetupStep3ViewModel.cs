@@ -57,27 +57,31 @@ namespace Automaton.View
 
         }
 
-        #region Event handlers for group controls
-
-        public static void Control_Checked(dynamic sender, RoutedEventArgs e)
+        private static void RouteControlActionEvent(dynamic sender, FlagEventType flagEventType)
         {
             var controlObject = (GroupControl)sender.CommandParameter;
             var matchingControlActions = controlObject.ControlActions
-                .Where(x => x.FlagEvent == FlagEventType.Checked);
+                .Where(x => x.FlagEvent == flagEventType);
 
             if (matchingControlActions.ContainsAny())
             {
                 foreach (var action in matchingControlActions)
                 {
-                    // Add or modify instance in FlagInstance
                     FlagInstance.AddOrModifyFlag(action.FlagName, action.FlagValue, action.FlagAction);
                 }
             }
         }
 
+        #region Event handlers for group controls
+
+        public static void Control_Checked(dynamic sender, RoutedEventArgs e)
+        {
+            RouteControlActionEvent(sender, FlagEventType.Checked);
+        }
+
         public static void Control_Unchecked(object sender, RoutedEventArgs e)
         {
-
+            RouteControlActionEvent(sender, FlagEventType.UnChecked);
         }
 
         public static void Control_Hover(object sender, RoutedEventArgs e)

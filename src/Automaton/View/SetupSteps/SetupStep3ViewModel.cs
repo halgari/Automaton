@@ -1,7 +1,6 @@
 ﻿using Automaton.Model;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -14,9 +13,12 @@ namespace Automaton.View
 
         public RelayCommand IncrementStepCommand { get; set; }
 
-        private SetupStep ThisStepType { get => SetupStep.Step3; }
+        private static SetupStep ThisStepType { get => SetupStep.Step3; }
 
         public OptionalGUI OptionalGUI { get; set; }
+
+        public string ImagePath { get; set; }
+        public string DescriptionText { get; set; }
 
         public bool IsEnabled { get; set; } = false;
         public bool IsComplete { get; set; } = false;
@@ -27,6 +29,10 @@ namespace Automaton.View
 
             Messenger.Default.Register<SetupStep>(this, MessengerTypes.SetupStepUpdate, OnRecieveStep);
             Messenger.Default.Register<ModpackHeader>(this, MessengerTypes.ModpackHeaderUpdate, OnRecieveModpack);
+
+            // I'm an idiot and made everything static. This will work for now.
+            Messenger.Default.Register<string>(this, "HoverImage", x => ImagePath = x);
+            Messenger.Default.Register<string>(this, "HoverDescription", x => DescriptionText = x);
         }
 
         private void OnRecieveStep(SetupStep messengerType)
@@ -45,6 +51,8 @@ namespace Automaton.View
             }
 
             OptionalGUI = modpack.OptionalGUI;
+            ImagePath = modpack.OptionalGUI.DefaultImage;
+            DescriptionText = modpack.OptionalGUI.DefaultDescription;
         }
 
         private void IncrementStep()
@@ -54,9 +62,13 @@ namespace Automaton.View
             IsComplete = true;
 
             // Update the list of mod installation parameters
-
         }
 
+        /// <summary>
+        /// Routes off a specified command and flag event to the model
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="flagEventType"></param>
         private static void RouteControlActionEvent(dynamic sender, FlagEventType flagEventType)
         {
             var controlObject = (GroupControl)sender.CommandParameter;
@@ -79,16 +91,27 @@ namespace Automaton.View
             RouteControlActionEvent(sender, FlagEventType.Checked);
         }
 
-        public static void Control_Unchecked(object sender, RoutedEventArgs e)
+        public static void Control_Unchecked(dynamic sender, RoutedEventArgs e)
         {
             RouteControlActionEvent(sender, FlagEventType.UnChecked);
         }
 
-        public static void Control_Hover(object sender, RoutedEventArgs e)
+        public static void Control_Hover(dynamic sender, RoutedEventArgs e)
         {
+            var controlObject = (GroupControl)sender.CommandParameter;
 
+            // Terrible code
+            if (!string.IsNullOrEmpty(controlObject.ControlHoverImage))
+            {
+                Messenger.Default.Send(controlObject.ControlHoverImage, "HoverImage");
+            }
+
+            if (!string.IsNullOrEmpty(controlObject.ControlHoverImage))
+            {
+                Messenger.Default.Send(controlObject.ControlHoverDescription, "HoverDescription");
+            }
         }
 
-        #endregion
+        #endregion Event handlers for group controls
     }
 }

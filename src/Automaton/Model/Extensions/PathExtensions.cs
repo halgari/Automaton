@@ -8,7 +8,12 @@ namespace Automaton.Model
         {
             var directorySeparator = Path.DirectorySeparatorChar.ToString();
 
-            return inputString.Replace("/", directorySeparator);
+            if (!string.IsNullOrEmpty(inputString))
+            {
+                return inputString.Replace("/", directorySeparator);
+            }
+
+            return inputString;
         }
     }
 }

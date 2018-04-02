@@ -41,11 +41,23 @@ namespace Automaton.Model
     /// </summary>
     internal class Installation
     {
+        private string _SourceLocation;
+
         [JsonProperty("source_location")]
-        public string SourceLocation { get; set; }
+        public string SourceLocation
+        {
+            get => _SourceLocation.StandardizePathSeparators();
+            set => _SourceLocation = value;
+        }
+
+        private string _TargetLocation;
 
         [JsonProperty("target_location")]
-        public string TargetLocation { get; set; }
+        public string TargetLocation
+        {
+            get => _TargetLocation.StandardizePathSeparators();
+            set => _TargetLocation = value;
+        }
 
         [JsonProperty("installation_conditions")]
         public List<Conditional> InstallationConditions { get; set; }

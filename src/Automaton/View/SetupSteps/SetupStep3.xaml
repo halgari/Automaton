@@ -70,54 +70,80 @@
             </TextBlock>
 
             <!--  Controls  -->
-            <StackPanel
-                Grid.Row="2"
-                Margin="0,10,0,10"
-                VerticalAlignment="Stretch">
-                <ItemsControl ItemsSource="{Binding OptionalGUI, Converter={StaticResource OptionalGUIToControlConverter}}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="0,0,0,5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
+            <Grid Grid.Row="2" Margin="0,10,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".6*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="20" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height=".5*" />
+                    </Grid.RowDefinitions>
 
-                                <Label
-                                    Grid.Row="0"
-                                    Grid.ColumnSpan="2"
-                                    Content="{Binding GroupHeaderText}"
-                                    FontFamily="{StaticResource ProductSans}"
-                                    FontSize="16" />
+                    <TextBlock
+                        Grid.Row="0"
+                        ScrollViewer.CanContentScroll="True"
+                        Text="{Binding DescriptionText}"
+                        TextWrapping="WrapWithOverflow" />
 
-                                <!--  List of converted controls  -->
-                                <ListBox
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    Margin="10,0,0,10"
-                                    ItemsSource="{Binding GroupControls, Converter={StaticResource GroupControlToControlConverter}}">
-                                    <ListBox.ItemContainerStyle>
-                                        <Style TargetType="{x:Type ListBoxItem}">
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                                        <ContentPresenter />
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </ListBox.ItemContainerStyle>
-                                </ListBox>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
+                    <Image
+                        Grid.Row="1"
+                        Margin="5"
+                        RenderOptions.BitmapScalingMode="Fant"
+                        Source="{Binding ImagePath}"
+                        Stretch="UniformToFill" />
+                </Grid>
+
+                <StackPanel Grid.Column="0" VerticalAlignment="Stretch">
+                    <ItemsControl ItemsSource="{Binding OptionalGUI, Converter={StaticResource OptionalGUIToControlConverter}}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.ColumnSpan="2"
+                                        Content="{Binding GroupHeaderText}"
+                                        FontFamily="{StaticResource ProductSans}"
+                                        FontSize="16" />
+
+                                    <!--  List of converted controls  -->
+                                    <ListBox
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Margin="10,0,0,10"
+                                        ItemsSource="{Binding GroupControls, Converter={StaticResource GroupControlToControlConverter}}">
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListBoxItem}">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                            <ContentPresenter />
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                    </ListBox>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Grid>
+
+
 
             <Grid Grid.Row="3">
                 <StackPanel Margin="5,5,5,5" Orientation="Horizontal">

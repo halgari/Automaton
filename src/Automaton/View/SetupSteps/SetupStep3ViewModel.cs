@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 
 namespace Automaton.View
@@ -17,8 +18,12 @@ namespace Automaton.View
 
         public OptionalGUI OptionalGUI { get; set; }
 
+        public string StepDescriptionText { get; set; }
         public string ImagePath { get; set; }
         public string DescriptionText { get; set; }
+
+        public string NotificationText { get; set; } =
+            "Hmm, I haven't found anything interesting yet. Make sure you've loaded a modpack first!";
 
         public bool IsEnabled { get; set; } = false;
         public bool IsComplete { get; set; } = false;
@@ -45,10 +50,18 @@ namespace Automaton.View
             // Skip this step if the modpack does not contain an optional GUI
             if (!modpack.ContainsOptionalGUI)
             {
+                NotificationText = "No optional installation configuration was found. You can skip this step!";
+
+                IsEnabled = false;
                 IsComplete = true;
 
                 return;
             }
+
+            IsEnabled = true;
+
+            StepDescriptionText =
+                "An optional installer configuration was found. Please select from the options below to modify your modpack installation.";
 
             OptionalGUI = modpack.OptionalGUI;
             ImagePath = modpack.OptionalGUI.DefaultImage;
@@ -60,8 +73,6 @@ namespace Automaton.View
             SetupController.IncrementStep();
 
             IsComplete = true;
-
-            // Update the list of mod installation parameters
         }
 
         /// <summary>

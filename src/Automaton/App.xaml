@@ -40,6 +40,7 @@
             <view:NullOrEmptyVisibilityConverter x:Key="NullOrEmptyVisibilityConverter" />
             <view:OptionalGUIToControlConverter x:Key="OptionalGUIToControlConverter" />
             <view:GroupControlToControlConverter x:Key="GroupControlToControlConverter" />
+            <view:BoolToInverseVisibilityConverter x:Key="BoolToInverseVisibilityConverter" />
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>
     </Application.Resources>

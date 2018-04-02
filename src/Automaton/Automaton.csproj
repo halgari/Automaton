@@ -103,6 +103,7 @@
     <Compile Include="View\Converters\AppendTextBeforeBindingConverter.cs" />
     <Compile Include="View\Converters\BoolToCompletionConverter.cs" />
     <Compile Include="View\Converters\BoolToInverseConverter.cs" />
+    <Compile Include="View\Converters\BoolToInverseVisibilityConverter.cs" />
     <Compile Include="View\Converters\GroupControlToControlConverter.cs" />
     <Compile Include="View\Converters\NullOrEmptyVisibilityConverter.cs" />
     <Compile Include="View\Converters\OptionalGUIToControlConverter.cs" />
@@ -221,6 +222,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Content\Images\AutomatonHead.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Emojis\blobdetective.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Emojis\blobconfused.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

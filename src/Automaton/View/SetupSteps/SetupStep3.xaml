@@ -11,6 +11,7 @@
     d:DesignWidth="500"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
+    IsEnabled="{Binding IsEnabled}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -23,6 +24,7 @@
     </UserControl.DataContext>
 
     <materialDesign:Card
+        MaxHeight="500"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
         UniformCornerRadius="5">
@@ -56,6 +58,7 @@
                 VerticalAlignment="Center"
                 FontFamily="{StaticResource MaterialDesignFont}"
                 FontSize="15"
+                Text="{Binding StepDescriptionText}"
                 TextWrapping="Wrap">
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
@@ -66,80 +69,126 @@
                         </Style.Triggers>
                     </Style>
                 </TextBlock.Style>
-                An optional installer configuration was found. Please select from the options below to modify your modpack installation.
             </TextBlock>
 
             <!--  Controls  -->
-            <Grid Grid.Row="2" Margin="0,10,0,10">
+            <Grid
+                Grid.Row="2"
+                Margin="0,10,0,10"
+                Visibility="{Binding IsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width=".6*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width=".65*" />
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height=".5*" />
-                    </Grid.RowDefinitions>
+                <materialDesign:Card
+                    Grid.Column="0"
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Stretch">
+                    <Grid VerticalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                    <TextBlock
-                        Grid.Row="0"
-                        ScrollViewer.CanContentScroll="True"
-                        Text="{Binding DescriptionText}"
-                        TextWrapping="WrapWithOverflow" />
+                        <ScrollViewer
+                            Grid.Row="0"
+                            Height="70"
+                            Margin="5"
+                            VerticalAlignment="Stretch">
+                            <TextBlock
+                                FontFamily="{StaticResource RobotoMono}"
+                                FontSize="12"
+                                Text="{Binding DescriptionText}"
+                                TextWrapping="WrapWithOverflow">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsEnabled" Value="False">
+                                                <Setter Property="Opacity" Value=".5" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </ScrollViewer>
 
+                        <Image
+                            Grid.Row="1"
+                            Margin="5,0,5,5"
+                            VerticalAlignment="Stretch"
+                            RenderOptions.BitmapScalingMode="Fant"
+                            Source="{Binding ImagePath}"
+                            Stretch="Uniform" />
+                    </Grid>
+                </materialDesign:Card>
+
+                <materialDesign:Card Grid.Column="1" VerticalAlignment="Stretch">
+                    <ScrollViewer>
+                        <ItemsControl ItemsSource="{Binding OptionalGUI, Converter={StaticResource OptionalGUIToControlConverter}}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.ColumnSpan="2"
+                                            Content="{Binding GroupHeaderText}"
+                                            FontFamily="{StaticResource ProductSans}"
+                                            FontSize="16" />
+
+                                        <!--  List of converted controls  -->
+                                        <ListBox
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="10,0,0,10"
+                                            ItemsSource="{Binding GroupControls, Converter={StaticResource GroupControlToControlConverter}}">
+                                            <ListBox.ItemContainerStyle>
+                                                <Style TargetType="{x:Type ListBoxItem}">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                                <ContentPresenter />
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </ListBox.ItemContainerStyle>
+                                        </ListBox>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </materialDesign:Card>
+
+
+            </Grid>
+
+            <!--  Notification Control  -->
+            <Grid
+                Grid.Row="2"
+                Margin="0,20,0,20"
+                Visibility="{Binding IsEnabled, Converter={StaticResource BoolToInverseVisibilityConverter}}">
+                <StackPanel>
                     <Image
-                        Grid.Row="1"
-                        Margin="5"
+                        Width="40"
+                        Height="40"
                         RenderOptions.BitmapScalingMode="Fant"
-                        Source="{Binding ImagePath}"
-                        Stretch="UniformToFill" />
-                </Grid>
-
-                <StackPanel Grid.Column="0" VerticalAlignment="Stretch">
-                    <ItemsControl ItemsSource="{Binding OptionalGUI, Converter={StaticResource OptionalGUIToControlConverter}}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="0,0,0,5">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="20" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label
-                                        Grid.Row="0"
-                                        Grid.ColumnSpan="2"
-                                        Content="{Binding GroupHeaderText}"
-                                        FontFamily="{StaticResource ProductSans}"
-                                        FontSize="16" />
-
-                                    <!--  List of converted controls  -->
-                                    <ListBox
-                                        Grid.Row="1"
-                                        Grid.Column="1"
-                                        Margin="10,0,0,10"
-                                        ItemsSource="{Binding GroupControls, Converter={StaticResource GroupControlToControlConverter}}">
-                                        <ListBox.ItemContainerStyle>
-                                            <Style TargetType="{x:Type ListBoxItem}">
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                                            <ContentPresenter />
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </ListBox.ItemContainerStyle>
-                                    </ListBox>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                        Source="pack://application:,,,/Content/Emojis/blobdetective.png" />
+                    <Label
+                        HorizontalAlignment="Center"
+                        Content="{Binding NotificationText}"
+                        FontSize="14" />
                 </StackPanel>
             </Grid>
 
@@ -151,15 +200,14 @@
                         Width="18"
                         Height="Auto"
                         VerticalAlignment="Center"
-                        Foreground="Orange"
-                        Kind="EmoticonSad" />
+                        Foreground="{Binding IsComplete, Converter={StaticResource BoolToColorCompletionConverter}}"
+                        Kind="{Binding IsComplete, Converter={StaticResource BoolToPackIconCompletetionConverter}}" />
 
                     <Label
                         VerticalAlignment="Center"
+                        Content="{Binding IsComplete, Converter={StaticResource BoolToTextCompletionConverter}}"
                         FontFamily="{StaticResource ProductSans}"
-                        FontSize="14">
-                        Not Completed
-                    </Label>
+                        FontSize="14" />
                 </StackPanel>
 
                 <Button

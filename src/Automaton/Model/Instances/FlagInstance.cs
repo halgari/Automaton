@@ -19,7 +19,7 @@ namespace Automaton.Model
             }
         }
 
-        private static List<string> ApplicationFlagKeys = new List<string>()
+        private static readonly List<string> ApplicationFlagKeys = new List<string>()
         {
             "$ModInstallFolders" // Can only add or remove 
         };

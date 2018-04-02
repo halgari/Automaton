@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Automaton.View;
 
 namespace Automaton
 {

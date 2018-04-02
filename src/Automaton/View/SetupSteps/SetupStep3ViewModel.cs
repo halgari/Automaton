@@ -26,6 +26,7 @@ namespace Automaton.View
             "Hmm, I haven't found anything interesting yet. Make sure you've loaded a modpack first!";
 
         public bool IsEnabled { get; set; } = false;
+        public bool IsNotificationEnabled { get; set; } = true;
         public bool IsComplete { get; set; } = false;
 
         public SetupStep3ViewModel()
@@ -52,12 +53,13 @@ namespace Automaton.View
             {
                 NotificationText = "No optional installation configuration was found. You can skip this step!";
 
-                IsEnabled = false;
                 IsComplete = true;
 
                 return;
             }
 
+            IsNotificationEnabled = false;
+            IsComplete = false;
             IsEnabled = true;
 
             StepDescriptionText =
@@ -72,6 +74,16 @@ namespace Automaton.View
         {
             SetupController.IncrementStep();
 
+            NotificationText = "I've saved all of your modifications, lets continue on to the next step!";
+
+            // We have to unload some strings for the card to resize correctly
+            ImagePath = "";
+            DescriptionText = "";
+
+            // May throw null binding error
+            OptionalGUI = null;
+
+            IsNotificationEnabled = true;
             IsComplete = true;
         }
 

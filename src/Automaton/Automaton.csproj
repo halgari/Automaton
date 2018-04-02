@@ -43,6 +43,9 @@
       <HintPath>..\packages\Costura.Fody.1.6.2\lib\dotnet\Costura.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Dragablz, Version=0.0.3.203, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dragablz.0.0.3.203\lib\net45\Dragablz.dll</HintPath>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
     </Reference>
@@ -72,6 +75,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -107,6 +112,9 @@
     <Compile Include="View\Converters\GroupControlToControlConverter.cs" />
     <Compile Include="View\Converters\NullOrEmptyVisibilityConverter.cs" />
     <Compile Include="View\Converters\OptionalGUIToControlConverter.cs" />
+    <Compile Include="View\Dialogs\ModValidationDialog.xaml.cs">
+      <DependentUpon>ModValidationDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainWindowViewModel.cs" />
     <Compile Include="View\SetupSteps\SetupStep0.xaml.cs">
       <DependentUpon>SetupStep0.xaml</DependentUpon>
@@ -127,9 +135,14 @@
     <Compile Include="View\SetupSteps\SetupStep4.xaml.cs">
       <DependentUpon>SetupStep4.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SetupSteps\SetupStep4ViewModel.cs" />
     <Compile Include="View\SetupSteps\SetupStep5.xaml.cs">
       <DependentUpon>SetupStep5.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\Dialogs\ModValidationDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

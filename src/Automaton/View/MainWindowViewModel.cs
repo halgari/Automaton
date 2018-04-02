@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.ComponentModel;
 using System.Windows;
+using MaterialDesignThemes.Wpf;
 
 namespace Automaton.View
 {
@@ -40,6 +41,13 @@ namespace Automaton.View
         private void WindowDrag(Window window)
         {
             window.DragMove();
+
+            Test();
+        }
+
+        private async void Test()
+        {
+            await DialogHost.Show(new ModValidationDialog(), "RootDialogHost");
         }
 
         private void WindowDoubleClick(Window window)

@@ -75,7 +75,7 @@
             <Grid
                 Grid.Row="2"
                 Margin="0,10,0,10"
-                Visibility="{Binding IsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                Visibility="{Binding IsNotificationEnabled, Converter={StaticResource BoolToInverseVisibilityConverter}}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width=".65*" />
@@ -178,7 +178,7 @@
             <Grid
                 Grid.Row="2"
                 Margin="0,20,0,20"
-                Visibility="{Binding IsEnabled, Converter={StaticResource BoolToInverseVisibilityConverter}}">
+                Visibility="{Binding IsNotificationEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <StackPanel>
                     <Image
                         Width="40"
@@ -213,7 +213,9 @@
                 <Button
                     HorizontalAlignment="Right"
                     AllowDrop="False"
+                    Command="{Binding IncrementStepCommand}"
                     FontFamily="{StaticResource ProductSans}"
+                    IsEnabled="{Binding IsComplete, Converter={StaticResource BoolToInverseConverter}}"
                     Style="{DynamicResource MaterialDesignFlatButton}">
                     Done
                 </Button>

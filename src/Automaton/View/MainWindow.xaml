@@ -27,165 +27,169 @@
         <view:MainWindowViewModel />
     </Window.DataContext>
 
-    <Grid>
+    <materialDesign:DialogHost
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        Identifier="RootDialogHost">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+            <!--  Title bar control  -->
+            <materialDesign:ColorZone
+                Grid.Row="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                Mode="PrimaryDark">
 
-        <!--  Title bar control  -->
-        <materialDesign:ColorZone
-            Grid.Row="0"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            materialDesign:ShadowAssist.ShadowDepth="Depth3"
-            Mode="PrimaryDark">
+                <i:Interaction.Triggers>
+                    <!--  Mouse drag functionality  -->
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding OnWindowDragCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:MainWindow}}}" />
+                    </i:EventTrigger>
 
-            <i:Interaction.Triggers>
-                <!--  Mouse drag functionality  -->
-                <i:EventTrigger EventName="MouseDown">
-                    <i:InvokeCommandAction Command="{Binding OnWindowDragCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:MainWindow}}}" />
-                </i:EventTrigger>
+                    <!--  Double click functionality  -->
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding OnWindowDoubleClickCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:MainWindow}}}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
 
-                <!--  Double click functionality  -->
-                <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction Command="{Binding OnWindowDoubleClickCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:MainWindow}}}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+                <Grid>
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
-            <Grid>
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-
-                    <!--  Automaton logo  -->
-                    <Image
-                        Width="Auto"
-                        Height="Auto"
-                        Margin="10,4,5,5"
-                        RenderOptions.BitmapScalingMode="Fant"
-                        Source="pack://application:,,,/Content/Images/AutomatonHead.png" />
-
-                    <!--  Automaton name  -->
-                    <Label
-                        Margin="5,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource ProductSans}"
-                        FontSize="17"
-                        Foreground="{DynamicResource MaterialDesignPaper}">
-                        A U T O M A T O N
-                    </Label>
-
-                    <!--  Separator  -->
-                    <Label
-                        VerticalAlignment="Center"
-                        FontFamily="{DynamicResource RobotoMono}"
-                        Foreground="{StaticResource MaterialDesignPaper}"
-                        Visibility="{Binding ModpackName, Converter={StaticResource NullOrEmptyVisibilityConverter}}">
-                        &gt;&gt;
-                    </Label>
-
-                    <!--  ModPack Name  -->
-                    <Label
-                        VerticalAlignment="Center"
-                        Content="{Binding ModpackName}"
-                        FontFamily="{DynamicResource RobotoMono}"
-                        Foreground="{StaticResource MaterialDesignPaper}" />
-                </StackPanel>
-
-                <!--  Window control buttons  -->
-                <StackPanel
-                    Margin="0,0,5,0"
-                    HorizontalAlignment="Right"
-                    Orientation="Horizontal">
-
-                    <!--  Options Window  -->
-                    <Button
-                        Margin="0,0,10,0"
-                        materialDesign:RippleAssist.ClipToBounds="True"
-                        Style="{StaticResource MaterialDesignToolButton}">
-                        <materialDesign:PackIcon
-                            Width="22"
+                        <!--  Automaton logo  -->
+                        <Image
+                            Width="Auto"
                             Height="Auto"
-                            Foreground="{DynamicResource MaterialDesignPaper}"
-                            Kind="Settings" />
-                    </Button>
+                            Margin="10,4,5,5"
+                            RenderOptions.BitmapScalingMode="Fant"
+                            Source="pack://application:,,,/Content/Images/AutomatonHead.png" />
 
-                    <!--  Minimize window  -->
-                    <Button
-                        materialDesign:RippleAssist.ClipToBounds="True"
-                        Command="{Binding MinimizeWindowCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:MainWindow}}}"
-                        Style="{StaticResource MaterialDesignToolButton}">
-                        <materialDesign:PackIcon
-                            Width="18"
-                            Height="Auto"
-                            Margin="0,10,0,0"
-                            Foreground="{DynamicResource MaterialDesignPaper}"
-                            Kind="WindowMinimize" />
-                    </Button>
+                        <!--  Automaton name  -->
+                        <Label
+                            Margin="5,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource ProductSans}"
+                            FontSize="17"
+                            Foreground="{DynamicResource MaterialDesignPaper}">
+                            A U T O M A T O N
+                        </Label>
 
-                    <!--  Resize window  -->
-                    <Button
-                        materialDesign:RippleAssist.ClipToBounds="True"
-                        Command="{Binding ResizeWindowCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:MainWindow}}}"
-                        Style="{StaticResource MaterialDesignToolButton}">
-                        <materialDesign:PackIcon
-                            Width="18"
-                            Height="Auto"
-                            Foreground="{DynamicResource MaterialDesignPaper}"
-                            Kind="WindowMaximize" />
-                    </Button>
+                        <!--  Separator  -->
+                        <Label
+                            VerticalAlignment="Center"
+                            FontFamily="{DynamicResource RobotoMono}"
+                            Foreground="{StaticResource MaterialDesignPaper}"
+                            Visibility="{Binding ModpackName, Converter={StaticResource NullOrEmptyVisibilityConverter}}">
+                            &gt;&gt;
+                        </Label>
 
-                    <!--  Close window  -->
-                    <Button
+                        <!--  ModPack Name  -->
+                        <Label
+                            VerticalAlignment="Center"
+                            Content="{Binding ModpackName}"
+                            FontFamily="{DynamicResource RobotoMono}"
+                            Foreground="{StaticResource MaterialDesignPaper}" />
+                    </StackPanel>
+
+                    <!--  Window control buttons  -->
+                    <StackPanel
+                        Margin="0,0,5,0"
                         HorizontalAlignment="Right"
-                        materialDesign:RippleAssist.ClipToBounds="True"
-                        Command="{Binding CloseWindowCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:MainWindow}}}"
-                        Style="{StaticResource MaterialDesignToolButton}">
-                        <materialDesign:PackIcon
-                            Width="20"
-                            Height="Auto"
-                            Foreground="{DynamicResource MaterialDesignPaper}"
-                            Kind="WindowClose" />
-                    </Button>
-                </StackPanel>
-            </Grid>
-        </materialDesign:ColorZone>
+                        Orientation="Horizontal">
 
-        <!--  Primary content  -->
-        <ScrollViewer Grid.Row="1">
+                        <!--  Options Window  -->
+                        <Button
+                            Margin="0,0,10,0"
+                            materialDesign:RippleAssist.ClipToBounds="True"
+                            Style="{StaticResource MaterialDesignToolButton}">
+                            <materialDesign:PackIcon
+                                Width="22"
+                                Height="Auto"
+                                Foreground="{DynamicResource MaterialDesignPaper}"
+                                Kind="Settings" />
+                        </Button>
 
-            <Grid Margin="0,10,0,0">
+                        <!--  Minimize window  -->
+                        <Button
+                            materialDesign:RippleAssist.ClipToBounds="True"
+                            Command="{Binding MinimizeWindowCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:MainWindow}}}"
+                            Style="{StaticResource MaterialDesignToolButton}">
+                            <materialDesign:PackIcon
+                                Width="18"
+                                Height="Auto"
+                                Margin="0,10,0,0"
+                                Foreground="{DynamicResource MaterialDesignPaper}"
+                                Kind="WindowMinimize" />
+                        </Button>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width=".2*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width=".2*" />
-                </Grid.ColumnDefinitions>
+                        <!--  Resize window  -->
+                        <Button
+                            materialDesign:RippleAssist.ClipToBounds="True"
+                            Command="{Binding ResizeWindowCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:MainWindow}}}"
+                            Style="{StaticResource MaterialDesignToolButton}">
+                            <materialDesign:PackIcon
+                                Width="18"
+                                Height="Auto"
+                                Foreground="{DynamicResource MaterialDesignPaper}"
+                                Kind="WindowMaximize" />
+                        </Button>
 
-                <StackPanel Grid.Column="1">
-                    <!--  Setup step 0  -->
-                    <view:SetupStep0 Margin="0,5,0,5" />
+                        <!--  Close window  -->
+                        <Button
+                            HorizontalAlignment="Right"
+                            materialDesign:RippleAssist.ClipToBounds="True"
+                            Command="{Binding CloseWindowCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:MainWindow}}}"
+                            Style="{StaticResource MaterialDesignToolButton}">
+                            <materialDesign:PackIcon
+                                Width="20"
+                                Height="Auto"
+                                Foreground="{DynamicResource MaterialDesignPaper}"
+                                Kind="WindowClose" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:ColorZone>
 
-                    <!--  Setup step 1  -->
-                    <view:SetupStep1 Margin="0,5,0,5" />
+            <!--  Primary content  -->
+            <ScrollViewer Grid.Row="1">
 
-                    <!--  Setup step 2  -->
-                    <view:SetupStep2 Margin="0,5,0,5" />
+                <Grid Margin="0,10,0,0">
 
-                    <!--  Setup step 3  -->
-                    <view:SetupStep3 Margin="0,5,0,5" />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width=".2*" />
+                    </Grid.ColumnDefinitions>
 
-                    <!--  Setup step 4  -->
-                    <view:SetupStep4 Margin="0,5,0,5" />
+                    <StackPanel Grid.Column="1">
+                        <!--  Setup step 0  -->
+                        <view:SetupStep0 Margin="0,5,0,5" />
 
-                    <!--  Setup step 5  -->
-                    <view:SetupStep5 Margin="0,5,0,5" />
-                </StackPanel>
-            </Grid>
-        </ScrollViewer>
-    </Grid>
+                        <!--  Setup step 1  -->
+                        <view:SetupStep1 Margin="0,5,0,5" />
+
+                        <!--  Setup step 2  -->
+                        <view:SetupStep2 Margin="0,5,0,5" />
+
+                        <!--  Setup step 3  -->
+                        <view:SetupStep3 Margin="0,5,0,5" />
+
+                        <!--  Setup step 4  -->
+                        <view:SetupStep4 Margin="0,5,0,5" />
+
+                        <!--  Setup step 5  -->
+                        <view:SetupStep5 Margin="0,5,0,5" />
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </materialDesign:DialogHost>
 </Window>

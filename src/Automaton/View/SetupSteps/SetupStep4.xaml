@@ -11,12 +11,18 @@
     d:DesignWidth="500"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
+    IsEnabled="{Binding IsEnabled}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <local:SetupStep3ViewModel />
+    </UserControl.DataContext>
+
 
     <materialDesign:Card
         HorizontalAlignment="Stretch"
@@ -54,195 +60,33 @@
                         </Style.Triggers>
                     </Style>
                 </TextBlock.Style>
-                I wasn't able to find some mod archives, please verify that they exist at the targeted location and are of the correct file, or locate them below.
+                I wasn't able to find some mods. Use the button below to open the validation= utility to find them.
             </TextBlock>
 
-            <StackPanel Margin="5">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".8*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <Label
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        FontFamily="{StaticResource RobotoMono}">
-                        Enhanced Blood Textures
-                    </Label>
-                    <Label
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        FontFamily="{StaticResource RobotoMono}">
-                        -Enhanced Blood Textures 3_6c NMM -60-3-6c.7z
-                    </Label>
-
-                    <StackPanel
-                        Grid.RowSpan="2"
-                        Grid.Column="2"
+            <Button
+                Width="Auto"
+                Height="40"
+                Margin="5,10,20,10"
+                HorizontalAlignment="Left"
+                Command="{Binding LoadModpackCommand}"
+                FontFamily="{StaticResource ProductSans}">
+                <StackPanel Orientation="Horizontal">
+                    <Image
+                        Width="Auto"
+                        Height="Auto"
                         Margin="0,0,5,0"
-                        Orientation="Horizontal">
-                        <Button
-                            Grid.RowSpan="2"
-                            Grid.Column="2"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource MaterialDesignToolButton}">
-                            <materialDesign:PackIcon
-                                Width="17"
-                                Height="Auto"
-                                Kind="Link" />
-                        </Button>
-
-                        <Button
-                            Grid.RowSpan="2"
-                            Grid.Column="2"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource MaterialDesignToolButton}">
-                            <materialDesign:PackIcon
-                                Width="17"
-                                Height="Auto"
-                                Kind="Magnify" />
-                        </Button>
-                    </StackPanel>
-
-                    <materialDesign:ColorZone
-                        Grid.Row="3"
-                        Grid.ColumnSpan="2"
-                        Height="1"
-                        Margin="5"
-                        HorizontalAlignment="Stretch"
-                        Background="Gray" />
-                </Grid>
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".8*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+                        RenderOptions.BitmapScalingMode="Fant"
+                        Source="pack://application:,,,/Content/Images/AutomatonHead.png" />
 
                     <Label
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        FontFamily="{StaticResource RobotoMono}">
-                        Alternate Start - Live Another Life
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource ProductSans}"
+                        FontSize="14"
+                        Foreground="{StaticResource MaterialDesignPaper}">
+                        Open Validation Utility
                     </Label>
-                    <Label
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        FontFamily="{StaticResource RobotoMono}">
-                        Alternate Start - Live Another Life-9557-3-1-7.7z
-                    </Label>
-
-                    <StackPanel
-                        Grid.RowSpan="2"
-                        Grid.Column="2"
-                        Margin="0,0,5,0"
-                        Orientation="Horizontal">
-                        <Button
-                            Grid.RowSpan="2"
-                            Grid.Column="2"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource MaterialDesignToolButton}">
-                            <materialDesign:PackIcon
-                                Width="17"
-                                Height="Auto"
-                                Kind="Link" />
-                        </Button>
-
-                        <Button
-                            Grid.RowSpan="2"
-                            Grid.Column="2"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource MaterialDesignToolButton}">
-                            <materialDesign:PackIcon
-                                Width="17"
-                                Height="Auto"
-                                Kind="Magnify" />
-                        </Button>
-                    </StackPanel>
-                    <materialDesign:ColorZone
-                        Grid.Row="3"
-                        Grid.ColumnSpan="2"
-                        Height="1"
-                        Margin="5"
-                        HorizontalAlignment="Stretch"
-                        Background="Gray" />
-                </Grid>
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".8*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <Label
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        FontFamily="{StaticResource RobotoMono}">
-                        aMidianBorn Book of Silence - Content Addon
-                    </Label>
-                    <Label
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        FontFamily="{StaticResource RobotoMono}">
-                        aMidianBorn - Content Addon-24909-1-9.7z
-                    </Label>
-
-                    <StackPanel
-                        Grid.RowSpan="2"
-                        Grid.Column="2"
-                        Margin="0,0,5,0"
-                        Orientation="Horizontal">
-                        <Button
-                            Grid.RowSpan="2"
-                            Grid.Column="2"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource MaterialDesignToolButton}">
-                            <materialDesign:PackIcon
-                                Width="17"
-                                Height="Auto"
-                                Kind="Link" />
-                        </Button>
-
-                        <Button
-                            Grid.RowSpan="2"
-                            Grid.Column="2"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource MaterialDesignToolButton}">
-                            <materialDesign:PackIcon
-                                Width="17"
-                                Height="Auto"
-                                Kind="Magnify" />
-                        </Button>
-                    </StackPanel>
-
-                    <materialDesign:ColorZone
-                        Grid.Row="3"
-                        Grid.ColumnSpan="2"
-                        Height="1"
-                        Margin="5"
-                        HorizontalAlignment="Stretch"
-                        Background="Gray" />
-                </Grid>
-            </StackPanel>
+                </StackPanel>
+            </Button>
 
             <Grid>
                 <StackPanel Margin="5,10,5,5" Orientation="Horizontal">

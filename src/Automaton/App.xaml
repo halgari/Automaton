@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
     xmlns:local="clr-namespace:Automaton"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:view="clr-namespace:Automaton.View"
@@ -17,10 +18,14 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Red.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Teal.xaml" />
 
                 <!--  Scrollbar style  -->
                 <ResourceDictionary Source="View/Styles/ScrollbarStyle.xaml" />
+
+                <!--  Include the Dragablz Material Design style  -->
+                <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
 
             <!--  Fonts  -->
@@ -30,6 +35,9 @@
             <!--  Typeography Sizes  -->
             <sys:Double x:Key="CardNumberSize">20</sys:Double>
             <sys:Double x:Key="CardHeaderSize">18</sys:Double>
+
+            <!--  tell Dragablz tab control to use the Material Design theme  -->
+            <Style BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" TargetType="{x:Type dragablz:TabablzControl}" />
 
             <!--  Converters  -->
             <view:BoolToTextCompletionConverter x:Key="BoolToTextCompletionConverter" />

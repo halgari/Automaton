@@ -129,7 +129,6 @@ namespace Automaton.Model
 
             foreach (var mod in modInstallParameters)
             {
-
             }
 
             return null;
@@ -172,7 +171,6 @@ namespace Automaton.Model
         /// <returns></returns>
         public static void PatchModArchivePath(Mod mod, string path)
         {
-
         }
     }
 }

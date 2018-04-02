@@ -108,6 +108,6 @@ namespace Automaton.Model
             ModpackInstance.ModpackHeader = tempModpackHeader;
         }
 
-        #endregion
+        #endregion Modification Methods
     }
 }

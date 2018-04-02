@@ -170,8 +170,6 @@
                         </ItemsControl>
                     </ScrollViewer>
                 </materialDesign:Card>
-
-
             </Grid>
 
             <!--  Notification Control  -->
@@ -191,8 +189,6 @@
                         FontSize="14" />
                 </StackPanel>
             </Grid>
-
-
 
             <Grid Grid.Row="3">
                 <StackPanel Margin="5,5,5,5" Orientation="Horizontal">

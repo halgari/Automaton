@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Interactivity;
 
 namespace Automaton.View
 {
@@ -43,7 +42,6 @@ namespace Automaton.View
 
                     stackPanel.Children.Add(control);
                 }
-
                 else if (groupControl.ControlType == ControlType.RadioButton)
                 {
                     var control = new RadioButton()
@@ -89,8 +87,6 @@ namespace Automaton.View
 
             control.Content = groupControl.ControlText;
             control.CommandParameter = groupControl;
-
-
 
             return control;
         }

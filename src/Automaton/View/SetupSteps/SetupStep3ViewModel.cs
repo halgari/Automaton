@@ -3,7 +3,6 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading;
 using System.Windows;
 
 namespace Automaton.View

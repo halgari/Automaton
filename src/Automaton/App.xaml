@@ -22,10 +22,6 @@
 
                 <!--  Scrollbar style  -->
                 <ResourceDictionary Source="View/Styles/ScrollbarStyle.xaml" />
-
-                <!--  Include the Dragablz Material Design style  -->
-                <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml" />
-
             </ResourceDictionary.MergedDictionaries>
 
             <!--  Fonts  -->
@@ -35,9 +31,6 @@
             <!--  Typeography Sizes  -->
             <sys:Double x:Key="CardNumberSize">20</sys:Double>
             <sys:Double x:Key="CardHeaderSize">18</sys:Double>
-
-            <!--  tell Dragablz tab control to use the Material Design theme  -->
-            <Style BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" TargetType="{x:Type dragablz:TabablzControl}" />
 
             <!--  Converters  -->
             <view:BoolToTextCompletionConverter x:Key="BoolToTextCompletionConverter" />

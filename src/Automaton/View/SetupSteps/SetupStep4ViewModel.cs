@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Automaton.Model;
+﻿using Automaton.Model;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace Automaton.View.SetupSteps
 {
-    class SetupStep4ViewModel
+    internal class SetupStep4ViewModel
     {
         private static SetupStep ThisStepType { get => SetupStep.Step4; }
 
@@ -27,7 +22,6 @@ namespace Automaton.View.SetupSteps
 
         private void OnRecieveModpack(ModpackHeader modpack)
         {
-
         }
     }
 }

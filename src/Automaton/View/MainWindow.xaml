@@ -27,10 +27,7 @@
         <view:MainWindowViewModel />
     </Window.DataContext>
 
-    <materialDesign:DialogHost
-        HorizontalAlignment="Stretch"
-        VerticalAlignment="Stretch"
-        Identifier="RootDialogHost">
+    <materialDesign:DialogHost Background="Transparent" Identifier="RootDialogHost">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" />

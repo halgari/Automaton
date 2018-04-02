@@ -1,12 +1,12 @@
-﻿using Automaton.Properties;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Automaton.Model
 {
-    class FlagInstance
+    internal class FlagInstance
     {
         private static List<FlagKeyValue> _FlagKeyValueList = new List<FlagKeyValue>();
+
         public static List<FlagKeyValue> FlagKeyValueList
         {
             get => _FlagKeyValueList;
@@ -21,7 +21,7 @@ namespace Automaton.Model
 
         private static readonly List<string> ApplicationFlagKeys = new List<string>()
         {
-            "$ModInstallFolders" // Can only add or remove 
+            "$ModInstallFolders" // Can only add or remove
         };
 
         public static void AddOrModifyFlag(string flagKey, string flagValue, FlagActionType flagActionType)
@@ -45,7 +45,7 @@ namespace Automaton.Model
                     FlagKeyValueList.Find(x => x.Key == flagKey).Value = flagValue;
                 }
 
-                // Remove the value 
+                // Remove the value
                 else if (flagActionType == FlagActionType.Remove)
                 {
                     FlagKeyValueList.RemoveAll(x => x.Key == flagKey);
@@ -83,7 +83,6 @@ namespace Automaton.Model
                 {
                     ModpackInstance.AddModInstallFolder(flagValue);
                 }
-
                 else if (flagActionType == FlagActionType.Remove)
                 {
                     ModpackInstance.RemoveModInstallFolder(flagValue);
@@ -92,7 +91,7 @@ namespace Automaton.Model
         }
     }
 
-    class FlagKeyValue
+    internal class FlagKeyValue
     {
         public string Key { get; set; }
         public string Value { get; set; }

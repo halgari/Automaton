@@ -23,7 +23,6 @@
         <local:SetupStep3ViewModel />
     </UserControl.DataContext>
 
-
     <materialDesign:Card
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"

@@ -1,9 +1,9 @@
 ﻿using Automaton.Model;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using MaterialDesignThemes.Wpf;
 using System.ComponentModel;
 using System.Windows;
-using MaterialDesignThemes.Wpf;
 
 namespace Automaton.View
 {

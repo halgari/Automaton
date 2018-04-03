@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight.Messaging;
+using HtmlAgilityPack;
 
 namespace Automaton.Model
 {
@@ -14,6 +16,7 @@ namespace Automaton.Model
         public static HttpClient NexusLoginInstance { get; set; }
 
         private const string LoginUrl = "https://www.nexusmods.com/Sessions/?Login";
+        private const string DownloadUrl = @"https://www.nexusmods.com/skyrim/download/";
 
         /// <summary>
         /// Attempts to log current HttpClient into the NexusMods servers. 
@@ -36,8 +39,67 @@ namespace Automaton.Model
             return isLoggedIn;
         }
 
-        public static void ModifyRegistryProtocol()
+        public static async Task<string> AttempFindDownloadPath(string nxmString)
         {
+            var splitNxm = nxmString.Split('/');
+            var downloadPage = DownloadUrl + splitNxm[splitNxm.Length - 1];
+            var downloadPageHtml = GetDownloadPage(downloadPage, NexusLoginInstance).Result;
+            var htmlDoc = new HtmlDocument();
+
+            return "";
         }
+
+        public static async Task<bool> StartFileDownload(string downloadLink)
+        {
+            var nexusDownloadUpdate = new NexusDownload()
+            {
+                DownloadPath = downloadLink,
+                FileName = downloadLink,
+                FileSize = downloadLink,
+                DownloadStatus = new NexusDownloadStatus()
+                {
+                    CurrentSpeed = "",
+                    PercentageComplete = 0
+                }
+            };
+
+            var webClient = new WebClient();
+
+            Messenger.Default.Send(nexusDownloadUpdate, NexusDownloadUpdate.Update);
+
+            return false;
+        }
+
+        private static async Task<string> GetDownloadPage(string downloadPage, HttpClient httpClient)
+        {
+            using (var response = await httpClient.GetAsync(downloadPage))
+            {
+                using (var content = response.Content)
+                {
+                    var result = content.ReadAsStringAsync();
+
+                    return result.Result;
+                }
+            }
+        }
+    }
+
+    class NexusDownload
+    {
+        public string DownloadPath { get; set; }
+        public string FileName { get; set; }
+        public string FileSize { get; set; }
+        public NexusDownloadStatus DownloadStatus { get; set; }
+    }
+
+    class NexusDownloadStatus
+    {
+        public string CurrentSpeed { get; set; }
+        public int PercentageComplete { get; set; }
+    }
+
+    enum NexusDownloadUpdate
+    {
+        Update
     }
 }

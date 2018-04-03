@@ -1,9 +1,13 @@
-﻿using Automaton.Model;
+﻿using System.Collections.Generic;
+using Automaton.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Security;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 
 namespace Automaton.View
 {
@@ -12,6 +16,9 @@ namespace Automaton.View
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<Mod> MissingMods { get; set; }
+        public ObservableCollection<NexusDownload> CurrentNexusDownloads { get; set; }
+
+        private static List<Task> TaskList { get; set; } = new List<Task>();
 
         public RelayCommand LogInCommand { get; set; }
 
@@ -28,6 +35,8 @@ namespace Automaton.View
         public ModValidationViewModel()
         {
             LogInCommand = new RelayCommand(LogIn);
+
+            Messenger.Default.Register<string>(this, PipeUpdate.MessageRecievedUpdate, OnRecieveServerMessage);
         }
 
         private async void LogIn()
@@ -47,12 +56,29 @@ namespace Automaton.View
                 LogInButtonText = "LOGGED IN";
 
                 // Check the registry for a valid NXM handler key. If none exist, create a new one.
+
+                // Initialize the pipe server
+                NamedPipesHandler.InitializeServer();
             }
 
             else
             {
                 LogInButtonText = "LOG IN";
             }
+        }
+
+        private void OnRecieveServerMessage(string nxmString)
+        {
+            // Create new task and initialize download
+            var task = Task.Factory.StartNew(() => DownloadTask(nxmString));
+
+            TaskList.Add(task);
+        }
+
+        private void DownloadTask(string nxmString)
+        {
+            var downloadLink = NexusHandler.AttempFindDownloadPath(nxmString).Result;
+            var downloadResult = NexusHandler.StartFileDownload(downloadLink);
         }
     }
 }

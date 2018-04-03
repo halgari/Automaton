@@ -34,33 +34,52 @@
         <local:ModValidationViewModel />
     </UserControl.DataContext>
 
-    <materialDesign:Card Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=ActualWidth, Converter={StaticResource MathConverter}, ConverterParameter=x-60}" Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=ActualHeight, Converter={StaticResource MathConverter}, ConverterParameter=x-60}">
+    <materialDesign:Card Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=ActualWidth, Converter={StaticResource MathConverter}, ConverterParameter=x * .9}" Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=ActualHeight, Converter={StaticResource MathConverter}, ConverterParameter=x * .8}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
+            <!--  Header  -->
             <materialDesign:Card Grid.Row="0">
-                <ToolBarTray>
-                    <ToolBar ClipToBounds="False">
-                        <ListBox SelectedIndex="{Binding CurrentIndex}">
-                            <ListBoxItem>
-                                <Label
-                                    Content="Missing Mods"
-                                    FontFamily="{StaticResource ProductSans}"
-                                    FontSize="16" />
-                            </ListBoxItem>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-                            <ListBoxItem>
-                                <Label
-                                    Content="Downloader"
-                                    FontFamily="{StaticResource ProductSans}"
-                                    FontSize="16" />
-                            </ListBoxItem>
-                        </ListBox>
-                    </ToolBar>
-                </ToolBarTray>
+                    <ToolBarTray Grid.Column="0">
+                        <ToolBar ClipToBounds="False">
+                            <ListBox SelectedIndex="{Binding CurrentIndex}">
+                                <ListBoxItem>
+                                    <Label
+                                        Content="Missing Mods"
+                                        FontFamily="{StaticResource ProductSans}"
+                                        FontSize="16" />
+                                </ListBoxItem>
+
+                                <ListBoxItem>
+                                    <Label
+                                        Content="Downloader"
+                                        FontFamily="{StaticResource ProductSans}"
+                                        FontSize="16" />
+                                </ListBoxItem>
+                            </ListBox>
+                        </ToolBar>
+                    </ToolBarTray>
+
+                    <Button
+                        Grid.Column="1"
+                        Margin="15"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        Style="{DynamicResource MaterialDesignToolButton}">
+                        <materialDesign:PackIcon Kind="Close" />
+                    </Button>
+                </Grid>
+
+
             </materialDesign:Card>
 
             <materialDesign:Transitioner Grid.Row="1" SelectedIndex="{Binding CurrentIndex}">
@@ -101,14 +120,16 @@
                                         <StackPanel Margin="0,0,0,10">
                                             <Label FontFamily="{StaticResource RobotoMono}">Username</Label>
                                             <TextBox
+                                                Name="UsernameTextBox"
                                                 Margin="5,0,5,0"
+                                                Focusable="True"
                                                 FontFamily="{StaticResource RobotoMono}"
                                                 Text="{Binding NexusUsername}" />
                                         </StackPanel>
 
                                         <StackPanel>
                                             <Label FontFamily="{StaticResource RobotoMono}">Password</Label>
-                                            <PasswordBox Margin="5,0,5,0" local:PasswordHelper.Password="{Binding NexusPassword, Mode=TwoWay}" />
+                                            <PasswordBox Margin="5,0,5,0" local:PasswordHelper.Password="{Binding NexusPassword}" />
                                         </StackPanel>
                                     </StackPanel>
 
@@ -130,7 +151,8 @@
                                             Width="150"
                                             Margin="5"
                                             Command="{Binding LogInCommand}"
-                                            Content="{Binding LogInButtonText}" />
+                                            Content="{Binding LogInButtonText}"
+                                            IsEnabled="{Binding IsLoggingIn, Converter={StaticResource BoolToInverseConverter}}" />
                                     </Grid>
 
                                 </Grid>
@@ -138,99 +160,129 @@
                         </materialDesign:TransitionerSlide>
 
                         <materialDesign:TransitionerSlide>
-                            <StackPanel>
-                                <Grid Margin="10" VerticalAlignment="Center">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
+                            <Grid>
+                                <StackPanel Margin="0,10,0,0" HorizontalAlignment="Stretch">
 
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+                                    <Expander>
+                                        <Expander.HeaderTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="*" />
+                                                    </Grid.RowDefinitions>
 
-                                    <Label
-                                        Grid.Column="0"
-                                        Grid.ColumnSpan="2"
-                                        FontFamily="{StaticResource RobotoMono}"
-                                        FontSize="14">
-                                        Bow - Running forward v1-2b female-exclusive - FNIS-16975-1-2b.7z
-                                    </Label>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
 
-                                    <ProgressBar
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        Grid.ColumnSpan="2"
-                                        Margin="7,0,15,0"
-                                        Value="55" />
+                                                    <Label
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        Margin="-5,2,0,5"
+                                                        FontFamily="{StaticResource RobotoMono}"
+                                                        FontSize="13"
+                                                        ToolTip="Skyrim Landscape Overhaul - Stone Walls (All-In-One FOMOD Installer)-76359-2-0.rar">
+                                                        Skyrim Landscape Overhaul - Stone Walls (All-In-One FOMOD Installer)-76359-2-0.rar
+                                                    </Label>
 
-                                    <Label
-                                        Grid.Row="1"
-                                        Grid.Column="2"
-                                        FontFamily="{StaticResource RobotoMono}"
-                                        FontSize="12">
-                                        1.3MB/s
-                                    </Label>
+                                                    <Label
+                                                        Grid.Row="0"
+                                                        Grid.Column="1"
+                                                        Margin="0,5,0,5"
+                                                        FontFamily="{StaticResource RobotoMono}"
+                                                        FontSize="13">
+                                                        430 KB/s
+                                                    </Label>
 
-                                    <materialDesign:ColorZone
-                                        Grid.Row="2"
-                                        Grid.Column="0"
-                                        Grid.ColumnSpan="3"
-                                        Height=".7"
-                                        Margin="7,10,7,0"
-                                        Background="Gray" />
+                                                    <ProgressBar
+                                                        Grid.Row="1"
+                                                        Grid.Column="0"
+                                                        Grid.ColumnSpan="2"
+                                                        Margin="0,0,0,2"
+                                                        Value="40" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </Expander.HeaderTemplate>
 
-                                </Grid>
+                                        <!--  Mod view content  -->
+                                        <Grid Margin="20,5,20,5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
 
-                                <Grid Margin="10" VerticalAlignment="Center">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
+                                            <Label FontFamily="{StaticResource RobotoMono}">Downloading: 72.1 KB</Label>
+                                        </Grid>
+                                    </Expander>
 
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+                                    <Border
+                                        Height="1"
+                                        Background="{DynamicResource MaterialDesignDivider}"
+                                        SnapsToDevicePixels="True" />
 
-                                    <Label
-                                        Grid.Column="0"
-                                        Grid.ColumnSpan="2"
-                                        FontFamily="{StaticResource RobotoMono}"
-                                        FontSize="14">
-                                        Fully Animated Meals Potions-26271-5-4b.rar
-                                    </Label>
+                                    <Expander>
+                                        <Expander.HeaderTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="*" />
+                                                    </Grid.RowDefinitions>
 
-                                    <ProgressBar
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        Grid.ColumnSpan="2"
-                                        Margin="7,0,15,0"
-                                        Value="20" />
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
 
-                                    <Label
-                                        Grid.Row="1"
-                                        Grid.Column="2"
-                                        FontFamily="{StaticResource RobotoMono}"
-                                        FontSize="12">
-                                        1.0MB/s
-                                    </Label>
+                                                    <Label
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        Margin="-5,2,0,5"
+                                                        FontFamily="{StaticResource RobotoMono}"
+                                                        FontSize="13">
+                                                        Immersive Animations NMM Installer Complete-34950-V2-1.zip
+                                                    </Label>
 
-                                    <materialDesign:ColorZone
-                                        Grid.Row="2"
-                                        Grid.Column="0"
-                                        Grid.ColumnSpan="3"
-                                        Height=".7"
-                                        Margin="7,10,7,0"
-                                        Background="Gray" />
+                                                    <Label
+                                                        Grid.Row="0"
+                                                        Grid.Column="1"
+                                                        Margin="0,5,0,5"
+                                                        FontFamily="{StaticResource RobotoMono}"
+                                                        FontSize="13">
+                                                        100 KB/s
+                                                    </Label>
 
-                                </Grid>
-                            </StackPanel>
+                                                    <ProgressBar
+                                                        Grid.Row="1"
+                                                        Grid.Column="0"
+                                                        Grid.ColumnSpan="2"
+                                                        Margin="0,0,0,2"
+                                                        Value="9" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </Expander.HeaderTemplate>
+
+                                        <!--  Mod view content  -->
+                                        <Grid Margin="20,5,20,5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+
+                                            <Label FontFamily="{StaticResource RobotoMono}">Downloading: 72.1 KB</Label>
+                                        </Grid>
+                                    </Expander>
+
+                                    <Border
+                                        Height="1"
+                                        Background="{DynamicResource MaterialDesignDivider}"
+                                        SnapsToDevicePixels="True" />
+
+                                </StackPanel>
+                            </Grid>
                         </materialDesign:TransitionerSlide>
                     </materialDesign:Transitioner>
 

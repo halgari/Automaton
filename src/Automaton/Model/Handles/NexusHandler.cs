@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
+using AngleSharp.Extensions;
+using AngleSharp.Parser.Html;
 using GalaSoft.MvvmLight.Messaging;
-using HtmlAgilityPack;
 
 namespace Automaton.Model
 {
@@ -39,35 +43,53 @@ namespace Automaton.Model
             return isLoggedIn;
         }
 
-        public static async Task<string> AttempFindDownloadPath(string nxmString)
+        public static async Task<string> AttemptFindDownloadPath(string nxmString)
         {
             var splitNxm = nxmString.Split('/');
             var downloadPage = DownloadUrl + splitNxm[splitNxm.Length - 1];
-            var downloadPageHtml = GetDownloadPage(downloadPage, NexusLoginInstance).Result;
-            var htmlDoc = new HtmlDocument();
+            var downloadPageHtml = await GetDownloadPage(downloadPage, NexusLoginInstance);
 
-            return "";
+            var htmlParser = new HtmlParser();
+            var html = await htmlParser.ParseAsync(downloadPageHtml);
+
+            var matchingElement = html.All.First(x => x.Id == "dl_link");
+            var matchingElementValue = matchingElement.GetAttribute("value");
+
+            return matchingElementValue;
         }
 
-        public static async Task<bool> StartFileDownload(string downloadLink)
+        public static async Task<bool> StartFileDownload(string downloadLink, CancellationTokenSource cancellationToken)
         {
             var nexusDownloadUpdate = new NexusDownload()
             {
-                DownloadPath = downloadLink,
-                FileName = downloadLink,
-                FileSize = downloadLink,
+                CancellationTokenSource = cancellationToken,
+                FileName = GetFileName(downloadLink),
+                FileSize = "",
+                DownloadPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, GetFileName(downloadLink)),
                 DownloadStatus = new NexusDownloadStatus()
                 {
                     CurrentSpeed = "",
-                    PercentageComplete = 0
+                    PercentageComplete = 0,
+                    TotalDownloaded = ""
                 }
             };
 
-            var webClient = new WebClient();
+            // Broadcast update
+            //Messenger.Default.Send(nexusDownloadUpdate, NexusDownloadUpdate.Update);
 
-            Messenger.Default.Send(nexusDownloadUpdate, NexusDownloadUpdate.Update);
+            using (var webClient = new WebClient())
+            {
+                webClient.DownloadProgressChanged += (sender, args) =>
+                {
+                    nexusDownloadUpdate.FileSize = args.TotalBytesToReceive.ToString();
+                    nexusDownloadUpdate.DownloadStatus.PercentageComplete = args.ProgressPercentage;
+                    nexusDownloadUpdate.DownloadStatus.TotalDownloaded = args.BytesReceived.ToString();
+                };
 
-            return false;
+                webClient.DownloadFileAsync(new Uri(downloadLink), nexusDownloadUpdate.DownloadPath);
+            }
+
+            return true;
         }
 
         private static async Task<string> GetDownloadPage(string downloadPage, HttpClient httpClient)
@@ -82,10 +104,22 @@ namespace Automaton.Model
                 }
             }
         }
+
+        private static string GetFileName(string fileUrl)
+        {
+            var splitFileUrl = fileUrl.Split('/');
+            var lastClump = splitFileUrl[splitFileUrl.Length - 1];
+
+            var fileName = lastClump.Substring(0, lastClump.LastIndexOf("?"));
+
+            return HttpUtility.UrlDecode(fileName);
+        }
     }
 
     class NexusDownload
     {
+        public CancellationTokenSource CancellationTokenSource { get; set; }
+
         public string DownloadPath { get; set; }
         public string FileName { get; set; }
         public string FileSize { get; set; }
@@ -95,6 +129,7 @@ namespace Automaton.Model
     class NexusDownloadStatus
     {
         public string CurrentSpeed { get; set; }
+        public string TotalDownloaded { get; set; }
         public int PercentageComplete { get; set; }
     }
 

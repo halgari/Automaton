@@ -3,6 +3,7 @@ using Automaton.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Security;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight.Command;
@@ -37,6 +38,7 @@ namespace Automaton.View
             LogInCommand = new RelayCommand(LogIn);
 
             Messenger.Default.Register<string>(this, PipeUpdate.MessageRecievedUpdate, OnRecieveServerMessage);
+            Messenger.Default.Register<NexusDownload>(this, NexusDownloadUpdate.Update, OnRecieveDownloadUpdate);
         }
 
         private async void LogIn()
@@ -70,15 +72,28 @@ namespace Automaton.View
         private void OnRecieveServerMessage(string nxmString)
         {
             // Create new task and initialize download
-            var task = Task.Factory.StartNew(() => DownloadTask(nxmString));
+            var cancellationTokenSouce = new CancellationTokenSource();
+            var cancellationToken = cancellationTokenSouce.Token;
+            var task = Task.Factory.StartNew(() => DownloadTask(nxmString, cancellationTokenSouce), cancellationToken);
+
 
             TaskList.Add(task);
         }
 
-        private void DownloadTask(string nxmString)
+        private void OnRecieveDownloadUpdate(NexusDownload nexusDownload)
         {
-            var downloadLink = NexusHandler.AttempFindDownloadPath(nxmString).Result;
-            var downloadResult = NexusHandler.StartFileDownload(downloadLink);
+            if (CurrentNexusDownloads.Contains(nexusDownload))
+            {
+                nexusDownload.CancellationTokenSource.Cancel();
+            }
+
+
+        }
+
+        private void DownloadTask(string nxmString, CancellationTokenSource cancellationToken)
+        {
+            var downloadLink = NexusHandler.AttemptFindDownloadPath(nxmString).Result;
+            var downloadResult = NexusHandler.StartFileDownload(downloadLink, cancellationToken).Result;
         }
     }
 }

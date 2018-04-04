@@ -16,10 +16,14 @@ namespace Automaton.Model
     {
         public static NamedPipeServer<string> PipeServer { get; set; }
 
+        private static IProgress<string> ResultNotifier { get; set; }
+
         public static StreamReader PipeReader { get; set; }
 
-        public static void InitializeServer()
+        public static void InitializeServer(IProgress<string> resultNotifier)
         {
+            ResultNotifier = resultNotifier;
+
             PipeServer = new NamedPipeServer<string>("Automaton_PIPE");
             PipeServer.ClientMessage += PipeServer_ClientMessage;
 
@@ -35,7 +39,7 @@ namespace Automaton.Model
         {
             if (!string.IsNullOrEmpty(message))
             {
-                Messenger.Default.Send(message, PipeUpdate.MessageRecievedUpdate);
+                ResultNotifier.Report(message);
             }
         }
     }

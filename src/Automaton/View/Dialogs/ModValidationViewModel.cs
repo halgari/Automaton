@@ -1,25 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Automaton.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using Automaton.Annotations;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 
 namespace Automaton.View
 {
-    internal class ModValidationViewModel : INotifyPropertyChanged
+    internal class ModValidationViewModel : IProgress<NexusDownloadUpdate>, IProgress<string>, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<Mod> MissingMods { get; set; }
-        public ObservableCollection<NexusDownload> CurrentNexusDownloads { get; set; }
 
-        private static List<Task> TaskList { get; set; } = new List<Task>();
+        public ObservableCollection<NexusDownloadUpdate> NexusDownloadList { get; set; } = new ObservableCollection<NexusDownloadUpdate>();
+
+        public List<Task> DownloadTaskQueue { get; set; } = new List<Task>();
 
         public RelayCommand LogInCommand { get; set; }
 
@@ -32,24 +39,20 @@ namespace Automaton.View
         public bool IsLoggedIn { get; set; } = false;
 
         public int CurrentIndex { get; set; } = 1;
+        public int RunningTasks { get; set; }
 
         public ModValidationViewModel()
         {
             LogInCommand = new RelayCommand(LogIn);
-
-            Messenger.Default.Register<string>(this, PipeUpdate.MessageRecievedUpdate, OnRecieveServerMessage);
-            Messenger.Default.Register<NexusDownload>(this, NexusDownloadUpdate.Update, OnRecieveDownloadUpdate);
         }
 
         private async void LogIn()
         {
             LogInButtonText = "LOGGING IN...";
-
             IsLoggingIn = true;
 
             // Attempt to log into the nexus servers.
-            var loginResult = await NexusHandler.AttemptNexusLogIn(NexusUsername, NexusPassword);
-
+            var loginResult = await Task.Factory.StartNew(() => NexusHandler.AttemptNexusLogIn(NexusUsername, NexusPassword)).Result;
             IsLoggingIn = false;
 
             if (loginResult)
@@ -60,40 +63,52 @@ namespace Automaton.View
                 // Check the registry for a valid NXM handler key. If none exist, create a new one.
 
                 // Initialize the pipe server
-                NamedPipesHandler.InitializeServer();
+                NamedPipesHandler.InitializeServer(new Progress<string>(Report));
+
+                return;
             }
 
-            else
+            LogInButtonText = "LOG IN";
+        }
+
+        private void StartTask(Action function)
+        {
+            var task = new Task(function);
+            task.Start();
+
+            RunningTasks++;
+        }
+
+        // Updates the UI with any nexus download updates
+        public void Report(NexusDownloadUpdate value)
+        {
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
-                LogInButtonText = "LOG IN";
-            }
+                var doesValueExist = NexusDownloadList.Any(x => x.FilePath == value.FilePath);
+
+                if (!doesValueExist)
+                {
+                    NexusDownloadList.Add(value);
+                }
+
+                else
+                {
+                    var test = NexusDownloadList;
+
+                    NexusDownloadList[NexusDownloadList
+                        .IndexOf(NexusDownloadList
+                        .First(x => x.FilePath == value.FilePath))] = value;
+
+                    Debug.WriteLine($"Updated: {value.FileName} || {value.DownloadPercentage}");
+                }
+            }));
         }
 
-        private void OnRecieveServerMessage(string nxmString)
+        // Updates the viewmodel with nxm parameters
+        public void Report(string nxmString)
         {
-            // Create new task and initialize download
-            var cancellationTokenSouce = new CancellationTokenSource();
-            var cancellationToken = cancellationTokenSouce.Token;
-            var task = Task.Factory.StartNew(() => DownloadTask(nxmString, cancellationTokenSouce), cancellationToken);
-
-
-            TaskList.Add(task);
-        }
-
-        private void OnRecieveDownloadUpdate(NexusDownload nexusDownload)
-        {
-            if (CurrentNexusDownloads.Contains(nexusDownload))
-            {
-                nexusDownload.CancellationTokenSource.Cancel();
-            }
-
-
-        }
-
-        private void DownloadTask(string nxmString, CancellationTokenSource cancellationToken)
-        {
-            var downloadLink = NexusHandler.AttemptFindDownloadPath(nxmString).Result;
-            var downloadResult = NexusHandler.StartFileDownload(downloadLink, cancellationToken).Result;
+            // Initialize a new download manager
+            StartTask(() => NexusHandler.DownloadNexusModFile(nxmString, new Progress<NexusDownloadUpdate>(Report)));
         }
     }
 }

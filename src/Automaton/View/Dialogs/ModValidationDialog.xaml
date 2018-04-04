@@ -160,129 +160,87 @@
                         </materialDesign:TransitionerSlide>
 
                         <materialDesign:TransitionerSlide>
-                            <Grid>
-                                <StackPanel Margin="0,10,0,0" HorizontalAlignment="Stretch">
+                            <ScrollViewer Margin="0,10,0,0" HorizontalAlignment="Stretch">
+                                <ItemsControl ItemsSource="{Binding NexusDownloadList}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <Expander Header="{Binding}">
+                                                    <Expander.HeaderTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="*" />
+                                                                    <RowDefinition Height="*" />
+                                                                </Grid.RowDefinitions>
 
-                                    <Expander>
-                                        <Expander.HeaderTemplate>
-                                            <DataTemplate>
-                                                <Grid>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="*" />
-                                                        <RowDefinition Height="*" />
-                                                    </Grid.RowDefinitions>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                </Grid.ColumnDefinitions>
 
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                    </Grid.ColumnDefinitions>
+                                                                <Label
+                                                                    Grid.Row="0"
+                                                                    Grid.Column="0"
+                                                                    Margin="-5,2,0,5"
+                                                                    Content="{Binding FileName}"
+                                                                    FontFamily="{StaticResource RobotoMono}"
+                                                                    FontSize="13"
+                                                                    ToolTip="{Binding FileName}" />
 
-                                                    <Label
-                                                        Grid.Row="0"
-                                                        Grid.Column="0"
-                                                        Margin="-5,2,0,5"
-                                                        FontFamily="{StaticResource RobotoMono}"
-                                                        FontSize="13"
-                                                        ToolTip="Skyrim Landscape Overhaul - Stone Walls (All-In-One FOMOD Installer)-76359-2-0.rar">
-                                                        Skyrim Landscape Overhaul - Stone Walls (All-In-One FOMOD Installer)-76359-2-0.rar
-                                                    </Label>
+                                                                <!--<Label
+                                                                Grid.Row="0"
+                                                                Grid.Column="1"
+                                                                Margin="0,5,0,5"
+                                                                FontFamily="{StaticResource RobotoMono}"
+                                                                FontSize="13"
+                                                                Content="">-->
+                                                                <!--</Label>-->
 
-                                                    <Label
-                                                        Grid.Row="0"
-                                                        Grid.Column="1"
-                                                        Margin="0,5,0,5"
-                                                        FontFamily="{StaticResource RobotoMono}"
-                                                        FontSize="13">
-                                                        430 KB/s
-                                                    </Label>
+                                                                <ProgressBar
+                                                                    Grid.Row="1"
+                                                                    Grid.Column="0"
+                                                                    Margin="0,0,0,2"
+                                                                    IsIndeterminate="False"
+                                                                    Value="{Binding DownloadPercentage}" />
 
-                                                    <ProgressBar
-                                                        Grid.Row="1"
-                                                        Grid.Column="0"
-                                                        Grid.ColumnSpan="2"
-                                                        Margin="0,0,0,2"
-                                                        Value="40" />
-                                                </Grid>
-                                            </DataTemplate>
-                                        </Expander.HeaderTemplate>
+                                                                <Label
+                                                                    Grid.Row="1"
+                                                                    Grid.Column="1"
+                                                                    Margin="0,0,0,2"
+                                                                    Content="{Binding DownloadPercentage}"
+                                                                    FontFamily="{StaticResource RobotoMono}"
+                                                                    FontSize="13" />
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </Expander.HeaderTemplate>
 
-                                        <!--  Mod view content  -->
-                                        <Grid Margin="20,5,20,5">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*" />
-                                                <RowDefinition Height="*" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
+                                                    <!--  Mod view content  -->
+                                                    <Grid Margin="20,5,20,5">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*" />
+                                                            <RowDefinition Height="*" />
+                                                            <RowDefinition Height="Auto" />
+                                                        </Grid.RowDefinitions>
 
-                                            <Label FontFamily="{StaticResource RobotoMono}">Downloading: 72.1 KB</Label>
-                                        </Grid>
-                                    </Expander>
+                                                        <Label Content="{Binding Downloaded}" FontFamily="{StaticResource RobotoMono}" />
 
-                                    <Border
-                                        Height="1"
-                                        Background="{DynamicResource MaterialDesignDivider}"
-                                        SnapsToDevicePixels="True" />
+                                                    </Grid>
+                                                </Expander>
 
-                                    <Expander>
-                                        <Expander.HeaderTemplate>
-                                            <DataTemplate>
-                                                <Grid>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="*" />
-                                                        <RowDefinition Height="*" />
-                                                    </Grid.RowDefinitions>
+                                                <Border
+                                                    Height="1"
+                                                    Background="{DynamicResource MaterialDesignDivider}"
+                                                    SnapsToDevicePixels="True" />
+                                            </StackPanel>
 
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                    </Grid.ColumnDefinitions>
 
-                                                    <Label
-                                                        Grid.Row="0"
-                                                        Grid.Column="0"
-                                                        Margin="-5,2,0,5"
-                                                        FontFamily="{StaticResource RobotoMono}"
-                                                        FontSize="13">
-                                                        Immersive Animations NMM Installer Complete-34950-V2-1.zip
-                                                    </Label>
 
-                                                    <Label
-                                                        Grid.Row="0"
-                                                        Grid.Column="1"
-                                                        Margin="0,5,0,5"
-                                                        FontFamily="{StaticResource RobotoMono}"
-                                                        FontSize="13">
-                                                        100 KB/s
-                                                    </Label>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
 
-                                                    <ProgressBar
-                                                        Grid.Row="1"
-                                                        Grid.Column="0"
-                                                        Grid.ColumnSpan="2"
-                                                        Margin="0,0,0,2"
-                                                        Value="9" />
-                                                </Grid>
-                                            </DataTemplate>
-                                        </Expander.HeaderTemplate>
-
-                                        <!--  Mod view content  -->
-                                        <Grid Margin="20,5,20,5">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*" />
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-
-                                            <Label FontFamily="{StaticResource RobotoMono}">Downloading: 72.1 KB</Label>
-                                        </Grid>
-                                    </Expander>
-
-                                    <Border
-                                        Height="1"
-                                        Background="{DynamicResource MaterialDesignDivider}"
-                                        SnapsToDevicePixels="True" />
-
-                                </StackPanel>
-                            </Grid>
+                            </ScrollViewer>
                         </materialDesign:TransitionerSlide>
                     </materialDesign:Transitioner>
 

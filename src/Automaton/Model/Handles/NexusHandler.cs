@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Security;
 using System.Text;
 using System.Threading;
@@ -11,6 +13,7 @@ using System.Threading.Tasks;
 using System.Web;
 using AngleSharp.Extensions;
 using AngleSharp.Parser.Html;
+using Automaton.Annotations;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace Automaton.Model
@@ -20,7 +23,9 @@ namespace Automaton.Model
         public static HttpClient NexusLoginInstance { get; set; }
 
         private const string LoginUrl = "https://www.nexusmods.com/Sessions/?Login";
-        private const string DownloadUrl = @"https://www.nexusmods.com/skyrim/download/";
+        private const string DownloadUrl = "https://www.nexusmods.com/skyrim/download/";
+
+        private static int LastDownloadPercentage = 0;
 
         /// <summary>
         /// Attempts to log current HttpClient into the NexusMods servers. 
@@ -43,7 +48,7 @@ namespace Automaton.Model
             return isLoggedIn;
         }
 
-        public static async Task<string> AttemptFindDownloadPath(string nxmString)
+        private static async Task<string> GetDownloadFileUrl(string nxmString)
         {
             var splitNxm = nxmString.Split('/');
             var downloadPage = DownloadUrl + splitNxm[splitNxm.Length - 1];
@@ -58,38 +63,56 @@ namespace Automaton.Model
             return matchingElementValue;
         }
 
-        public static async Task<bool> StartFileDownload(string downloadLink, CancellationTokenSource cancellationToken)
+        public static async Task<bool> DownloadNexusModFile(string nxmString, IProgress<NexusDownloadUpdate> progress)
         {
-            var nexusDownloadUpdate = new NexusDownload()
+            var downloadFileUrl = await GetDownloadFileUrl(nxmString);
+            var fileName = GetFileName(downloadFileUrl);
+
+            // Notify the UI that a new element needs to be added
+            var nexusDownloadUpdate = new NexusDownloadUpdate()
             {
-                CancellationTokenSource = cancellationToken,
-                FileName = GetFileName(downloadLink),
-                FileSize = "",
-                DownloadPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, GetFileName(downloadLink)),
-                DownloadStatus = new NexusDownloadStatus()
-                {
-                    CurrentSpeed = "",
-                    PercentageComplete = 0,
-                    TotalDownloaded = ""
-                }
+                FileName = fileName,
+                FilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName),
+                DownloadSize = "0",
+                Downloaded = "0",
+                DownloadPercentage = 0
             };
 
-            // Broadcast update
-            //Messenger.Default.Send(nexusDownloadUpdate, NexusDownloadUpdate.Update);
+            progress.Report(nexusDownloadUpdate);
 
             using (var webClient = new WebClient())
             {
-                webClient.DownloadProgressChanged += (sender, args) =>
+                webClient.DownloadProgressChanged += (sender, e) =>
                 {
-                    nexusDownloadUpdate.FileSize = args.TotalBytesToReceive.ToString();
-                    nexusDownloadUpdate.DownloadStatus.PercentageComplete = args.ProgressPercentage;
-                    nexusDownloadUpdate.DownloadStatus.TotalDownloaded = args.BytesReceived.ToString();
+                    DownloadProgressChanged(sender, e, nexusDownloadUpdate, progress);
                 };
 
-                webClient.DownloadFileAsync(new Uri(downloadLink), nexusDownloadUpdate.DownloadPath);
+                await webClient.DownloadFileTaskAsync(new Uri(downloadFileUrl), nexusDownloadUpdate.FilePath);
             }
 
-            return true;
+            return false;
+        }
+
+        private static void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e, NexusDownloadUpdate nexusDownloadUpdate, IProgress<NexusDownloadUpdate> progress)
+        {
+            //if (LastDownloadPercentage < e.ProgressPercentage)
+            //{
+            //    LastDownloadPercentage = e.ProgressPercentage;
+
+            //    nexusDownloadUpdate.DownloadPercentage = e.ProgressPercentage;
+            //    nexusDownloadUpdate.Downloaded = e.BytesReceived.ToString();
+            //    nexusDownloadUpdate.DownloadSize = e.TotalBytesToReceive.ToString();
+
+            //    progress.Report(nexusDownloadUpdate);
+            //}
+
+            LastDownloadPercentage = e.ProgressPercentage;
+
+            nexusDownloadUpdate.DownloadPercentage = e.ProgressPercentage;
+            nexusDownloadUpdate.Downloaded = e.BytesReceived.ToString();
+            nexusDownloadUpdate.DownloadSize = e.TotalBytesToReceive.ToString();
+
+            progress.Report(nexusDownloadUpdate);
         }
 
         private static async Task<string> GetDownloadPage(string downloadPage, HttpClient httpClient)
@@ -116,25 +139,16 @@ namespace Automaton.Model
         }
     }
 
-    class NexusDownload
+    public class NexusDownloadUpdate : INotifyPropertyChanged
     {
-        public CancellationTokenSource CancellationTokenSource { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public string DownloadPath { get; set; }
         public string FileName { get; set; }
+        public string FilePath { get; set; }
         public string FileSize { get; set; }
-        public NexusDownloadStatus DownloadStatus { get; set; }
-    }
 
-    class NexusDownloadStatus
-    {
-        public string CurrentSpeed { get; set; }
-        public string TotalDownloaded { get; set; }
-        public int PercentageComplete { get; set; }
-    }
-
-    enum NexusDownloadUpdate
-    {
-        Update
+        public string DownloadSize { get; set; }
+        public string Downloaded { get; set; }
+        public int DownloadPercentage { get; set; }
     }
 }

@@ -61,6 +61,7 @@ namespace Automaton.View
                 LogInButtonText = "LOGGED IN";
 
                 // Check the registry for a valid NXM handler key. If none exist, create a new one.
+                var registryString = @"Computer\HKEY_CURRENT_USER\Software\Classes\nxm\shell\open\command";
 
                 // Initialize the pipe server
                 NamedPipesHandler.InitializeServer(new Progress<string>(Report));
@@ -93,13 +94,9 @@ namespace Automaton.View
 
                 else
                 {
-                    var test = NexusDownloadList;
-
                     NexusDownloadList[NexusDownloadList
                         .IndexOf(NexusDownloadList
                         .First(x => x.FilePath == value.FilePath))] = value;
-
-                    Debug.WriteLine($"Updated: {value.FileName} || {value.DownloadPercentage}");
                 }
             }));
         }

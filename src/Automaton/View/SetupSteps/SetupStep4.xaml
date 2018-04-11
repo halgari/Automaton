@@ -20,7 +20,7 @@
     mc:Ignorable="d">
 
     <UserControl.DataContext>
-        <local:SetupStep3ViewModel />
+        <local:SetupStep4ViewModel />
     </UserControl.DataContext>
 
     <materialDesign:Card
@@ -67,7 +67,7 @@
                 Height="40"
                 Margin="5,10,20,10"
                 HorizontalAlignment="Left"
-                Command="{Binding LoadModpackCommand}"
+                Command="{Binding OpenModValidationDialogCommand}"
                 FontFamily="{StaticResource ProductSans}">
                 <StackPanel Orientation="Horizontal">
                     <Image

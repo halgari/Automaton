@@ -85,9 +85,7 @@
             <materialDesign:Transitioner Grid.Row="1" SelectedIndex="{Binding CurrentIndex}">
 
                 <!--  Missing Mods slide  -->
-                <materialDesign:TransitionerSlide>
-                    <Label>Test1</Label>
-                </materialDesign:TransitionerSlide>
+                <materialDesign:TransitionerSlide />
 
                 <!--  Downloader slide  -->
                 <materialDesign:TransitionerSlide>
@@ -182,32 +180,23 @@
                                                                 <Label
                                                                     Grid.Row="0"
                                                                     Grid.Column="0"
-                                                                    Margin="-5,2,0,5"
+                                                                    Margin="-5,-5,0,-2"
                                                                     Content="{Binding FileName}"
                                                                     FontFamily="{StaticResource RobotoMono}"
                                                                     FontSize="13"
                                                                     ToolTip="{Binding FileName}" />
 
-                                                                <!--<Label
-                                                                Grid.Row="0"
-                                                                Grid.Column="1"
-                                                                Margin="0,5,0,5"
-                                                                FontFamily="{StaticResource RobotoMono}"
-                                                                FontSize="13"
-                                                                Content="">-->
-                                                                <!--</Label>-->
-
                                                                 <ProgressBar
                                                                     Grid.Row="1"
                                                                     Grid.Column="0"
-                                                                    Margin="0,0,0,2"
+                                                                    Margin="0,0,0,-2"
                                                                     IsIndeterminate="False"
                                                                     Value="{Binding DownloadPercentage}" />
 
                                                                 <Label
                                                                     Grid.Row="1"
                                                                     Grid.Column="1"
-                                                                    Margin="0,0,0,2"
+                                                                    Margin="0,0,0,-2"
                                                                     Content="{Binding DownloadPercentage}"
                                                                     FontFamily="{StaticResource RobotoMono}"
                                                                     FontSize="13" />
@@ -215,7 +204,7 @@
                                                         </DataTemplate>
                                                     </Expander.HeaderTemplate>
 
-                                                    <!--  Mod view content  -->
+                                                    <!--  Download details  -->
                                                     <Grid Margin="20,5,20,5">
                                                         <Grid.RowDefinitions>
                                                             <RowDefinition Height="*" />
@@ -243,7 +232,6 @@
                             </ScrollViewer>
                         </materialDesign:TransitionerSlide>
                     </materialDesign:Transitioner>
-
 
                 </materialDesign:TransitionerSlide>
             </materialDesign:Transitioner>

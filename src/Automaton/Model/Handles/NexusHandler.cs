@@ -87,7 +87,7 @@ namespace Automaton.Model
                     DownloadProgressChanged(sender, e, nexusDownloadUpdate, progress);
                 };
 
-                await webClient.DownloadFileTaskAsync(new Uri(downloadFileUrl), nexusDownloadUpdate.FilePath);
+                webClient.DownloadFileTaskAsync(new Uri(downloadFileUrl), nexusDownloadUpdate.FilePath);
             }
 
             return false;

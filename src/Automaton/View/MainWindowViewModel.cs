@@ -42,10 +42,10 @@ namespace Automaton.View
         {
             window.DragMove();
 
-            Test();
+            OpenModValidationDialog();
         }
 
-        private async void Test()
+        private async void OpenModValidationDialog()
         {
             await DialogHost.Show(new ModValidationDialog(), "RootDialogHost");
         }

@@ -108,6 +108,8 @@
     <Compile Include="Model\Errors\GenericErrorHandler.cs" />
     <Compile Include="Model\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Model\Extensions\PathExtensions.cs" />
+    <Compile Include="Model\Github\GithubApiHandler.cs" />
+    <Compile Include="Model\Github\GithubApiToken.cs" />
     <Compile Include="Model\Handles\NamedPipesHandler.cs" />
     <Compile Include="Model\Handles\NexusHandler.cs" />
     <Compile Include="Model\Instances\FlagInstance.cs" />
@@ -128,7 +130,6 @@
       <DependentUpon>ModValidationDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Dialogs\ModValidationViewModel.cs" />
-    <Compile Include="View\Extensions\FullyObservableCollection.cs" />
     <Compile Include="View\MainWindowViewModel.cs" />
     <Compile Include="View\SetupSteps\SetupStep0.xaml.cs">
       <DependentUpon>SetupStep0.xaml</DependentUpon>
